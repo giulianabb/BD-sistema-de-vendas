@@ -10,14 +10,26 @@ public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 	
 	private String nomeCompleto;
 	private Integer torre;
 	private Integer apartamento;
 	private String telefone;
 	
-	public Integer getId() {
+	public Cliente() {
+	}
+	
+	public Cliente(Long id, String nomeCompleto, Integer torre, Integer apartamento, String telefone) {
+		super();
+		this.id = id;
+		this.nomeCompleto = nomeCompleto;
+		this.torre = torre;
+		this.apartamento = apartamento;
+		this.telefone = telefone;
+	}
+
+	public Long getId() {
 		return id;
 	}
 	public String getNomeCompleto() {
