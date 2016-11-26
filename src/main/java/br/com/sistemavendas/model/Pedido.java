@@ -1,6 +1,7 @@
 package br.com.sistemavendas.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import br.com.sistemavendas.type.DiaDaSemana;
 import br.com.sistemavendas.type.MeioDeContato;
@@ -18,19 +20,27 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private Date data;
+	
 	@Enumerated(EnumType.STRING)
 	private DiaDaSemana diaDaSemana;
+	
 	private String status;
 	private Boolean cortesia;
+	
 	@Enumerated(EnumType.STRING)
 	private MeioDeContato meioDeContato;
-
+	
+	@OneToMany(mappedBy = "pedido")
+	private Set<ItemPedido> itens;
+	
+	
 	public Pedido() {
 	}
 
 	public Pedido(Long id, Date data, DiaDaSemana diaDaSemana, String status, Boolean cortesia,
-			MeioDeContato meioDeContato) {
+			MeioDeContato meioDeContato, Set<ItemPedido> itens) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -38,6 +48,7 @@ public class Pedido {
 		this.status = status;
 		this.cortesia = cortesia;
 		this.meioDeContato = meioDeContato;
+		this.itens = itens;
 	}
 
 	public Long getId() {
@@ -82,6 +93,14 @@ public class Pedido {
 
 	public void setMeioDeContato(MeioDeContato meioDeContato) {
 		this.meioDeContato = meioDeContato;
+	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 }
