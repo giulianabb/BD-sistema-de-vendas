@@ -162,19 +162,36 @@ public class PedidoController {
 	
 	@RequestMapping("/ativos")
 	private String pedidosAtivos(Model model) {
-		
-		
-		
+		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
+		model.addAttribute("ativos", ativos);
+		StatusPedido[] status = StatusPedido.values();
+		model.addAttribute("status", status);
 		return "pedido/ativos";
 	}
 	
 	@RequestMapping("/ativos/editar/{pedidoId}")
-	private String atualizarStatus(@PathVariable Long pedidoId, Model model) {
+	private String atualizarStatus(@PathVariable Long pedidoId, @RequestParam StatusPedido statusNovo, Model model) {
+		Pedido pedidoAlterado = null;
+		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
+		for(Pedido pedido : ativos) {
+			if(pedido.getId()==pedidoId) {
+				pedidoAlterado = pedido;
+				pedido.setStatus(statusNovo.name());
+				pedidoDAO.save(pedido);
+			}
+		}
 		
+		if(pedidoAlterado!=null && statusNovo.equals(StatusPedido.finalizado)) {
+			ativos.remove(pedidoAlterado);
+		}
+		
+		model.addAttribute("ativos", ativos);
+		StatusPedido[] status = StatusPedido.values();
+		model.addAttribute("status", status);
 		return "pedido/ativos";
 	}
 	
-	@RequestMapping("")
+	@RequestMapping("/todos")
 	private String todosPedidos(Model model) {
 		
 		return "pedidos/todos";
