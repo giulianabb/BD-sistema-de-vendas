@@ -1,6 +1,5 @@
 package br.com.sistemavendas.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,12 @@ import br.com.sistemavendas.DAO.ItemDAO;
 import br.com.sistemavendas.DAO.ItemPedidoDAO;
 import br.com.sistemavendas.DAO.PagamentoDAO;
 import br.com.sistemavendas.DAO.PedidoDAO;
-import br.com.sistemavendas.DAO.ServicoDAO;
 import br.com.sistemavendas.DAO.SolicitaDAO;
 import br.com.sistemavendas.model.Cliente;
 import br.com.sistemavendas.model.Funcionario;
 import br.com.sistemavendas.model.ItemPedido;
 import br.com.sistemavendas.model.Pagamento;
 import br.com.sistemavendas.model.Pedido;
-import br.com.sistemavendas.model.Servico;
 import br.com.sistemavendas.model.Solicita;
 import br.com.sistemavendas.service.PedidoService;
 import br.com.sistemavendas.type.DiaDaSemana;
@@ -52,10 +49,10 @@ public class PedidoController {
 	private PagamentoDAO pagamentoDAO;
 	@Autowired
 	private SolicitaDAO solicitaDAO;
-	
 	@Autowired
 	private PedidoService pedidoService;
 	
+	// CRIAÇÃO DE PEDIDO
 	
 	@RequestMapping("/novo")
 	private String novoPedido(Model model) {
@@ -157,11 +154,30 @@ public class PedidoController {
 			@RequestParam Long funcionario_atendimento, @RequestParam Long funcionario_cozinha,
 			@RequestParam Long funcionario_entrega, Model model) {
 		
-		
-		
-		
-		
+		pedidoService.montaServicos(funcionario_atendimento, funcionario_cozinha, funcionario_entrega, pedidoId);
 		return "pedido/fim";
+	}
+	
+	// EDIÇÃO DE PEDIDO
+	
+	@RequestMapping("/ativos")
+	private String pedidosAtivos(Model model) {
+		
+		
+		
+		return "pedido/ativos";
+	}
+	
+	@RequestMapping("/ativos/editar/{pedidoId}")
+	private String atualizarStatus(@PathVariable Long pedidoId, Model model) {
+		
+		return "pedido/ativos";
+	}
+	
+	@RequestMapping("")
+	private String todosPedidos(Model model) {
+		
+		return "pedidos/todos";
 	}
 	
 }
