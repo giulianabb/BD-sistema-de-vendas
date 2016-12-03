@@ -46,4 +46,12 @@ public class ItemController {
 		model.addAttribute("item", item);
 		return "item/editar";
 	}
+	
+	@RequestMapping("/deletar/{id}")
+	private String deletarItem(Model model, @PathVariable("id") Long id) {
+		itemDAO.delete(id);
+		Iterable<Item> itens = itemDAO.findAll();
+		model.addAttribute("itens", itens);
+		return "item/todos";
+	}
 }

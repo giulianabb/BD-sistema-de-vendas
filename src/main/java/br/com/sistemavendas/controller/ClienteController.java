@@ -46,5 +46,13 @@ public class ClienteController {
 		model.addAttribute("cliente", cliente);
 		return "cliente/editar";
 	}
+	
+	@RequestMapping("/deletar/{id}")
+	private String deletarCliente(Model model, @PathVariable("id") Long id) {
+		clienteDAO.delete(id);
+		Iterable<Cliente> clientes = clienteDAO.findAll();
+		model.addAttribute("clientes", clientes);
+		return "cliente/todos";
+	}
 
 }

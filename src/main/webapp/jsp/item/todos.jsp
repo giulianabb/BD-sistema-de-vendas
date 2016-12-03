@@ -38,6 +38,7 @@
 							<td>Descrição</td>
 							<td>Sabor</td>
 							<td>Preço</td>
+							<td></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,6 +50,8 @@
 								<td>${item.descricao}</td>
 								<td>${item.sabor}</td>
 								<td><fmt:formatNumber value="${item.preco}" type="currency" currencySymbol="R$" /> </td>
+								<td><a href="/item/deletar/${item.id}"><i class="fa fa-trash" aria-hidden="true"></i>
+								</a></td>
 							</tr>
 
 						</c:forEach>

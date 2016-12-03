@@ -38,6 +38,7 @@
 							<td>Torre</td>
 							<td>Apartamento</td>
 							<td>Telefone</td>
+							<td></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,6 +50,8 @@
 								<td>${cliente.torre}</td>
 								<td>${cliente.apartamento}</td>
 								<td>${cliente.telefone}</td>
+								<td><a href="/cliente/deletar/${cliente.id}"><i class="fa fa-trash" aria-hidden="true"></i>
+								</a></td>
 							</tr>
 
 						</c:forEach>
