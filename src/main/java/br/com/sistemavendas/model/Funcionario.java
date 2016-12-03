@@ -12,7 +12,7 @@ public class Funcionario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	@Column(name="nome_completo")
+	@Column(name="nome_funcionario")
 	private String nomeCompleto;
 	private String cpf;
 	private String rg;
