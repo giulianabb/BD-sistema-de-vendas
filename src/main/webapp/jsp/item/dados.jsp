@@ -16,10 +16,8 @@
         <div class="container">
             <div class="center">        
                 <h2>Item gravado com sucesso!</h2>
+                <a class="btn btn-primary" href="/">Voltar à página inicial</a>
             </div> 
-            <div class="container text-center"> 
-				<a class="btn btn-primary" href="/">Voltar à página inicial</a>
-            </div><!--/.row-->
         </div><!--/.container-->
     </section><!--/#contact-page-->
 	<%@ include file="../../footer-template.html" %>
