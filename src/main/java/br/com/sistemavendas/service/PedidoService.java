@@ -1,6 +1,7 @@
 package br.com.sistemavendas.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,19 +48,30 @@ public class PedidoService  {
 		ids.add(funcionario_atendimento);
 		ids.add(funcionario_cozinha);
 		ids.add(funcionario_entrega);
-		Iterable<Funcionario> funcionarios = funcionarioDAO.findAll(ids);
+		List<Funcionario> funcionarios = (List<Funcionario>) funcionarioDAO.findAll(ids);
+		
+		HashMap<Integer, Funcionario> responsaveis = new HashMap<>();
+		for(Funcionario funcionario : funcionarios) {
+			if(funcionario.getId() == funcionario_atendimento) {
+				responsaveis.put(0, funcionario);
+			}
+			if(funcionario.getId() == funcionario_cozinha) {
+				responsaveis.put(1, funcionario);
+			}
+			if(funcionario.getId() == funcionario_entrega) {
+				responsaveis.put(2, funcionario);
+			}
+		}
 		
 		Pedido pedido = pedidoDAO.findOne(pedidoId);
 		
 		Funcao[] funcoes = Funcao.values();	
 		Integer i = 0;
-		
 		List<Servico> servicos = new ArrayList<Servico>();
 		
-		for(Funcionario funcionario : funcionarios) {
-			Servico servico = new Servico(null, pedido, funcionario, funcoes[i]);
+		for(i = 0; i < 3; i++) {
+			Servico servico = new Servico(null, pedido, responsaveis.get(i), funcoes[i]);
 			servicos.add(servico);
-			i++;
 		}
 		
 		servicos = (List<Servico>) servicoDAO.save(servicos);
