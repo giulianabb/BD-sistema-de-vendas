@@ -11,4 +11,13 @@ public enum MeioDeContato {
 	private MeioDeContato(String meio) {
 		this.meio = meio;
 	}
+	
+	public String getMeio() {
+		return meio;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getMeio();
+	}
 }

@@ -17,4 +17,13 @@ public enum DiaDaSemana {
 	
 	private DiaDaSemana() {
 	}
+	
+	public String getDia() {
+		return dia;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getDia();
+	}
 }

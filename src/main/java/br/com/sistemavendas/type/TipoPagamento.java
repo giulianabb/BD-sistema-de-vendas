@@ -12,4 +12,13 @@ public enum TipoPagamento {
 	private TipoPagamento(String pagamento) {
 		this.pagamento = pagamento;
 	}
+	
+	public String getPagamento() {
+		return pagamento;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getPagamento();
+	}
 }

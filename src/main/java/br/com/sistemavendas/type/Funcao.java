@@ -10,4 +10,13 @@ public enum Funcao {
 	private Funcao(String funcao) {
 		this.funcao = funcao;
 	}
+	
+	public String getFuncao() {
+		return funcao;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getFuncao();
+	}
 }
