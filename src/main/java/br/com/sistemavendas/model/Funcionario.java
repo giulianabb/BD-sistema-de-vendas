@@ -1,5 +1,6 @@
 package br.com.sistemavendas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ public class Funcionario {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@Column(name="nome_completo")
 	private String nomeCompleto;
 	private String cpf;
 	private String rg;

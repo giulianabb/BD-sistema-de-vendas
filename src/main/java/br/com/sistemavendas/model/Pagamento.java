@@ -2,6 +2,7 @@ package br.com.sistemavendas.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,6 +22,7 @@ public class Pagamento {
 	private TipoPagamento tipo;
 	private Double valor;
 	private Boolean efetuado;
+	@Column(name="data_pagamento")
 	private Date dataPagamento;
 	
 	public Pagamento() {

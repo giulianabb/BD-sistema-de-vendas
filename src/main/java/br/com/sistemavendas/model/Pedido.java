@@ -3,6 +3,7 @@ package br.com.sistemavendas.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,15 +22,19 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(name="data_pedido")
 	private Date data;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name="dia_semana")
 	private DiaDaSemana diaDaSemana;
 	
+	@Column(name="status_pedido")
 	private String status;
 	private Boolean cortesia;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name="meio_de_contato")
 	private MeioDeContato meioDeContato;
 	
 	@OneToMany(mappedBy = "pedido")

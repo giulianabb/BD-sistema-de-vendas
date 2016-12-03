@@ -1,5 +1,6 @@
 package br.com.sistemavendas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,13 @@ public class Cliente {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@Column(name="nome_completo")
 	private String nomeCompleto;
+	@Column(name="torre")
 	private Integer torre;
+	@Column(name="apartamento")
 	private Integer apartamento;
+	@Column(name="telefone")
 	private String telefone;
 	
 	public Cliente() {
