@@ -7,15 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<!-- core CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/font-awesome.min.css" rel="stylesheet">
-<link href="../../css/prettyPhoto.css" rel="stylesheet">
-<link href="../../css/animate.min.css" rel="stylesheet">
-<link href="../../css/main.css" rel="stylesheet">
-<link href="../../css/responsive.css" rel="stylesheet">
-<script src="https://use.fontawesome.com/8b53352e30.js"></script>
-<link rel="shortcut icon" href="../../images/favicon.ico">
 <title>Adicionar item ao pedido</title>
 </head>
 <!--/head-->
@@ -28,7 +19,7 @@
 			</div>
 			<div class="row contact-wrap">
 				<div class="status alert alert-success" style="display: none"></div>
-				<form method="post" action="/pedido/adicionar/item">
+				<form method="post" action="/pedido/${pedidoId}/salvar/item">
 					<div class="col-sm-5 col-sm-offset-1">
 						<div class="form-group">
 							<label>Item</label> <select name="item" class="form-control">
@@ -53,7 +44,6 @@
 								name="observacao" class="form-control">
 						</div>
 					</div>
-					<input type="hidden" name="pedidoId" value="${pedido.id}">
 				</form>
 			</div>
 			<!--/.row-->

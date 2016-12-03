@@ -7,15 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<!-- core CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/font-awesome.min.css" rel="stylesheet">
-<link href="../../css/prettyPhoto.css" rel="stylesheet">
-<link href="../../css/animate.min.css" rel="stylesheet">
-<link href="../../css/main.css" rel="stylesheet">
-<link href="../../css/responsive.css" rel="stylesheet">
-<script src="https://use.fontawesome.com/8b53352e30.js"></script>
-<link rel="shortcut icon" href="../../images/favicon.ico">
 <title>Adicionar pedido</title>
 </head>
 <!--/head-->
@@ -35,19 +26,19 @@
 								name="data" class="form-control" required="required">
 						</div>
 						<div class="form-group">
-							<label>Dia da semana <select name="diaDaSemana" class="form-control">
+							<label>Dia da semana </label><select name="diaDaSemana" class="form-control">
 								<c:forEach items="${diasSemana}" var="dia">
 									<option value="${dia.name()}">${dia.toString()}
 								</c:forEach>
 							</select>
-							</label>
 						</div>
-						<div class="form-check form-group form-control-lg">
-							<label class="form-check-label">
-							<input type="checkbox"
-								id="check-cortesia" name="cortesia" class="form-check-input ">
-							 Cortesia</label>
-						</div>
+						<div class="form-group" style="padding-top: 20px;">
+							<label>Cortesia</label>
+							 <div class="material-switch pull-right">
+	                            <input id="someSwitchOptionSuccess" name="cortesia" type="checkbox"/>
+	                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+	                        </div>
+                        </div>
 						<div class="form-group">
 							<button type="submit" name="submit"
 								class="btn btn-primary btn-lg" required="required">Adicionar itens</button>

@@ -7,17 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<!-- core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/font-awesome.min.css" rel="stylesheet">
-<link href="../css/prettyPhoto.css" rel="stylesheet">
-<link href="../css/animate.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<link href="../css/responsive.css" rel="stylesheet">
-
-<script src="https://use.fontawesome.com/8b53352e30.js"></script>
-
-<link rel="shortcut icon" href="../images/favicon.ico">
 <title>Hirano Vendas</title>
 </head>
 <!--/head-->

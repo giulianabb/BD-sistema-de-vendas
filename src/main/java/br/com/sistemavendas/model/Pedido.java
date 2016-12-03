@@ -37,15 +37,12 @@ public class Pedido {
 	@Column(name="meio_de_contato")
 	private MeioDeContato meioDeContato;
 	
-	@OneToMany(mappedBy = "pedido")
-	private Set<ItemPedido> itens;
-	
 	
 	public Pedido() {
 	}
 
 	public Pedido(Long id, Date data, DiaDaSemana diaDaSemana, String status, Boolean cortesia,
-			MeioDeContato meioDeContato, Set<ItemPedido> itens) {
+			MeioDeContato meioDeContato) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -53,7 +50,6 @@ public class Pedido {
 		this.status = status;
 		this.cortesia = cortesia;
 		this.meioDeContato = meioDeContato;
-		this.itens = itens;
 	}
 
 	public Long getId() {
@@ -104,12 +100,4 @@ public class Pedido {
 		this.meioDeContato = meioDeContato;
 	}
 	
-	public Set<ItemPedido> getItens() {
-		return itens;
-	}
-
-	public void setItens(Set<ItemPedido> itens) {
-		this.itens = itens;
-	}
-
 }
