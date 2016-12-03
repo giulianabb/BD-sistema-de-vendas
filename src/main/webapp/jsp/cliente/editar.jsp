@@ -16,7 +16,7 @@
 <link href="../../css/responsive.css" rel="stylesheet">
 <script src="https://use.fontawesome.com/8b53352e30.js"></script>
 <link rel="shortcut icon" href="../../images/favicon.ico">
-<title>Cadastrar cliente</title>
+<title>Editar cliente</title>
 </head>
 <!--/head-->
 <body>

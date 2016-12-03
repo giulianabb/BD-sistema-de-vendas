@@ -29,7 +29,7 @@
                 <h2>Cliente gravado com sucesso!</h2>
             </div> 
             <div class="container text-center"> 
-				<a class="btn btn-primary" href="/home">Voltar à página inicial</a>
+				<a class="btn btn-primary" href="/">Voltar à página inicial</a>
             </div><!--/.row-->
         </div><!--/.container-->
     </section><!--/#contact-page-->
