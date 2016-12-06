@@ -1,43 +1,42 @@
 package br.com.sistemavendas.model;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import br.com.sistemavendas.type.DiaDaSemana;
 import br.com.sistemavendas.type.MeioDeContato;
 
 @Entity
+@Embeddable
 public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="data_pedido")
+
+	@Column(name = "data_pedido")
 	private Date data;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name="dia_semana")
+	@Column(name = "dia_semana")
 	private DiaDaSemana diaDaSemana;
-	
-	@Column(name="status_pedido")
+
+	@Column(name = "status_pedido")
 	private String status;
 	private Boolean cortesia;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name="meio_de_contato")
+	@Column(name = "meio_de_contato")
 	private MeioDeContato meioDeContato;
-	
-	
+
 	public Pedido() {
 	}
 
@@ -59,7 +58,7 @@ public class Pedido {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Date getData() {
 		return data;
 	}
@@ -99,5 +98,5 @@ public class Pedido {
 	public void setMeioDeContato(MeioDeContato meioDeContato) {
 		this.meioDeContato = meioDeContato;
 	}
-	
+
 }

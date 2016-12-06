@@ -48,8 +48,8 @@
 					</div>
 					<div class="col-sm-5">
 						<div class="form-group">
-							<label>Data do pagamento</label> <input type="date"   
-								name="dataPagamento" class="form-control" required="required">
+							<label>Data do pagamento</label> 
+							<input type="date" name="dataPagamento" class="form-control" required="required">
 						</div>
 						<div class="form-group" style="padding-top: 20px;">
 							<label>Efetuado</label>
@@ -58,6 +58,7 @@
 	                            <label for="someSwitchOptionSuccess" class="label-success"></label>
 	                        </div>
                         </div>
+                        <input type="hidden" name="efetuado" value="false"/>
 					</div>
 				</form>
 			</div>

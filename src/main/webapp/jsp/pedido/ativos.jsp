@@ -42,7 +42,7 @@
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td>${ativo.meioDeContato.toString()}</td>
 								<td><form method="post"
-										action="/pedido/ativos/editar/${ativo.id}">
+										action="/pedido/info/ativos/editar/${ativo.id}">
 										<div class="form-group">
 											<select name='statusNovo' class="form-control" >
 												<c:forEach items="${status}" var="situacao">
@@ -63,7 +63,7 @@
 										</div>
 									</form></td>
 								<td><a
-									href="/pedido/${ativo.id}/deletar"><i
+									href="/pedido/info/ativos/${ativo.id}/deletar"><i
 										class="fa fa-trash" aria-hidden="true"></i> </a></td>
 							</tr>
 

@@ -9,6 +9,7 @@ import br.com.sistemavendas.model.Cliente;
 @RepositoryRestResource
 public interface ClienteDAO extends CrudRepository<Cliente, Long>, ClienteDAOCustom {
 
+	
 }
 
 

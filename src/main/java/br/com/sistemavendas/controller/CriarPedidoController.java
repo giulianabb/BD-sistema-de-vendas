@@ -1,5 +1,6 @@
 package br.com.sistemavendas.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import br.com.sistemavendas.type.TipoPagamento;
 
 @Controller
 @RequestMapping("/pedido")
-public class PedidoController {
+public class CriarPedidoController {
 	
 	@Autowired
 	private ClienteDAO clienteDAO;
@@ -74,6 +75,8 @@ public class PedidoController {
 		return "pedido/adicionarItem";
 	}
 	
+	// ADICIONAR ITENS
+	
 	@RequestMapping("/{pedidoId}/novo/item")
 	private String adicionarItem(@PathVariable("pedidoId") Long pedidoId, Model model) {
 		model.addAttribute("itens", itemDAO.findAll());
@@ -94,12 +97,14 @@ public class PedidoController {
 		return "pedido/situacaoAtual";
 	}
 	
-	@RequestMapping("/{pedidoId}/editar/item/{itemPedidoId}")
+	@RequestMapping("/{pedidoId}/editar/{itemPedidoId}")
 	private String editarItem(@PathVariable(value = "itemPedidoId") Long itemPedidoId, 
 			@PathVariable(value = "pedidoId") Long pedidoId, Model model) {
 		ItemPedido item = itemPedidoDAO.findOne(itemPedidoId);
-		
-		model.addAttribute("item", item);
+
+		model.addAttribute("itens", itemDAO.findAll());
+		model.addAttribute("itemPedido", item);
+		model.addAttribute("pedidoId", pedidoId);
 		return "pedido/editarItem";
 	}
 	
@@ -114,6 +119,8 @@ public class PedidoController {
 		model.addAttribute("itensPedidos", itensPedidos);
 		return "pedido/situacaoAtual";
 	}
+	
+	// PAGAMENTO
 	
 	@RequestMapping("/{pedidoId}/pagamento/dados")
 	private String avancarParaPagamento(@PathVariable(value = "pedidoId") Long pedidoId, Model model) {
@@ -133,10 +140,21 @@ public class PedidoController {
 	
 	@RequestMapping(value="/{pedidoId}/pagamento/salvar", method = RequestMethod.POST)
 	private String salvarPagamento(@PathVariable(value = "pedidoId") Long pedidoId,
-			@ModelAttribute Pagamento pagamento, @RequestParam Long clienteId, Model model) {
+			@RequestParam Boolean efetuado, @RequestParam Long clienteId, 
+			@RequestParam TipoPagamento tipo, @RequestParam Double valor,
+			@RequestParam(required=false) Date dataPagamento, Model model) {
 		
 		Pedido pedido = pedidoDAO.findOne(pedidoId);
 		Cliente cliente = clienteDAO.findOne(clienteId);
+		
+		if(!efetuado) {
+			dataPagamento = null;
+		} else if(efetuado && dataPagamento==null) {
+			dataPagamento = new Date();
+		}
+		
+		Pagamento pagamento = new Pagamento(null, tipo, valor, efetuado, dataPagamento);
+		
 		pagamento = pagamentoDAO.save(pagamento);
 		
 		Solicita solicita = new Solicita(null, pedido, cliente, pagamento);
@@ -149,6 +167,8 @@ public class PedidoController {
 		return "pedido/funcionarios";
 	}
 	
+	// ADICIONA SERVIÇO
+	
 	@RequestMapping(value="/{pedidoId}/servico", method = RequestMethod.POST)
 	private String adicionarServico(@PathVariable(value = "pedidoId") Long pedidoId,
 			@RequestParam Long funcionario_atendimento, @RequestParam Long funcionario_cozinha,
@@ -156,45 +176,6 @@ public class PedidoController {
 		
 		pedidoService.montaServicos(funcionario_atendimento, funcionario_cozinha, funcionario_entrega, pedidoId);
 		return "pedido/fim";
-	}
-	
-	// EDIÇÃO DE PEDIDO
-	
-	@RequestMapping("/ativos")
-	private String pedidosAtivos(Model model) {
-		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
-		model.addAttribute("ativos", ativos);
-		StatusPedido[] status = StatusPedido.values();
-		model.addAttribute("status", status);
-		return "pedido/ativos";
-	}
-	
-	@RequestMapping("/ativos/editar/{pedidoId}")
-	private String atualizarStatus(@PathVariable Long pedidoId, @RequestParam StatusPedido statusNovo, Model model) {
-		Pedido pedidoAlterado = null;
-		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
-		for(Pedido pedido : ativos) {
-			if(pedido.getId()==pedidoId) {
-				pedidoAlterado = pedido;
-				pedido.setStatus(statusNovo.name());
-				pedidoDAO.save(pedido);
-			}
-		}
-		
-		if(pedidoAlterado!=null && statusNovo.equals(StatusPedido.finalizado)) {
-			ativos.remove(pedidoAlterado);
-		}
-		
-		model.addAttribute("ativos", ativos);
-		StatusPedido[] status = StatusPedido.values();
-		model.addAttribute("status", status);
-		return "pedido/ativos";
-	}
-	
-	@RequestMapping("/todos")
-	private String todosPedidos(Model model) {
-		
-		return "pedidos/todos";
 	}
 	
 }

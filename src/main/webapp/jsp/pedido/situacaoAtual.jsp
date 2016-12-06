@@ -36,7 +36,8 @@
 						<c:set var="precoFinal" value="0"/>
 						<c:forEach items="${itensPedidos}" var="itemPedido">
 							<tr>
-								<th scope="row"><a href="/pedido/${pedido.id}/editar/${itemPedido.id}">${itemPedido.id}</a></th>
+								<th scope="row"><a href="/pedido/${pedido.id}/editar/${itemPedido.id}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+</a></th>
 								<td>${itemPedido.item.nome}</td>
 								<td>${itemPedido.item.sabor}</td>
 								<td>${itemPedido.quantidade}</td>
