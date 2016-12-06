@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistemavendas.DAO.PagamentoDAO;
 import br.com.sistemavendas.DAO.PedidoDAO;
+import br.com.sistemavendas.container.PedidoComCliente;
 import br.com.sistemavendas.container.PedidosPorDia;
 import br.com.sistemavendas.container.PedidosPorTorre;
 import br.com.sistemavendas.model.Pagamento;
@@ -32,7 +33,7 @@ public class AnalisePedidoController {
 	
 	@RequestMapping("/ativos")
 	private String pedidosAtivos(Model model) {
-		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
+		List<PedidoComCliente> ativos = pedidoDAO.findPedidosAtivos();
 		model.addAttribute("ativos", ativos);
 		StatusPedido[] status = StatusPedido.values();
 		model.addAttribute("status", status);
@@ -41,19 +42,11 @@ public class AnalisePedidoController {
 	
 	@RequestMapping("/ativos/editar/{pedidoId}")
 	private String atualizarStatus(@PathVariable Long pedidoId, @RequestParam StatusPedido statusNovo, Model model) {
-		Pedido pedidoAlterado = null;
-		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
-		for(Pedido pedido : ativos) {
-			if(pedido.getId()==pedidoId) {
-				pedidoAlterado = pedido;
-				pedido.setStatus(statusNovo.name());
-				pedidoDAO.save(pedido);
-			}
-		}
+		Pedido pedido = pedidoDAO.findOne(pedidoId);	
+		pedido.setStatus(statusNovo.name());
+		pedidoDAO.save(pedido);
 		
-		if(pedidoAlterado!=null && statusNovo.equals(StatusPedido.finalizado)) {
-			ativos.remove(pedidoAlterado);
-		}
+		List<PedidoComCliente> ativos = pedidoDAO.findPedidosAtivos();
 		
 		model.addAttribute("ativos", ativos);
 		StatusPedido[] status = StatusPedido.values();
@@ -72,7 +65,7 @@ public class AnalisePedidoController {
 			model.addAttribute("todos", todos);
 			return "pedido/todos";
 		}
-		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
+		List<PedidoComCliente> ativos = pedidoDAO.findPedidosAtivos();
 		model.addAttribute("ativos", ativos);
 		return "pedido/ativos";
 	}

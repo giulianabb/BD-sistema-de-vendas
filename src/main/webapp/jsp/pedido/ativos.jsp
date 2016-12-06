@@ -23,11 +23,11 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<td>#</td>
+							<td>Nome do cliente</td>
+							<td>Torre / Apartamento </td>
 							<td>Data do pedido</td>
 							<td>Dia da semana</td>
 							<td>Cortesia</td>
-							<td>Meio de contato</td>
 							<td>Status</td>
 							<td></td>
 						</tr>
@@ -35,19 +35,19 @@
 					<tbody>
 						<c:forEach items="${ativos}" var="ativo">
 							<tr>
-								<th scope="row">${ativo.id}</th>
+								<td>${ativo.nomeCompleto } </td>
+								<td>Torre ${ativo.torre } / Apt. ${ativo.apartamento }</td>
 								<td><fmt:formatDate value="${ativo.data}"
-										pattern="dd/MM/YYYY hh:mm" /></td>
+										pattern="dd/MM/YYYY" /></td>
 								<td>${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
-								<td>${ativo.meioDeContato.toString()}</td>
 								<td><form method="post"
 										action="/pedido/info/ativos/editar/${ativo.id}">
 										<div class="form-group">
 											<select name='statusNovo' class="form-control" >
 												<c:forEach items="${status}" var="situacao">
 													<c:choose>
-													  <c:when test="${!situacao.name().equals(ativo.status)}">
+													  <c:when test="${!situacao.name().equals(ativo.status.name())}">
 													  	<option value="${situacao.name()}">${situacao.toString()}</option>
 													  </c:when>
 													  <c:otherwise>

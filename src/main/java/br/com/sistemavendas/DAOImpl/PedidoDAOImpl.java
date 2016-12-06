@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.sistemavendas.DAOCustom.PedidoDAOCustom;
+import br.com.sistemavendas.container.PedidoComCliente;
 import br.com.sistemavendas.container.PedidosPorDia;
 import br.com.sistemavendas.container.PedidosPorTorre;
 import br.com.sistemavendas.model.Cliente;
@@ -17,6 +18,7 @@ import br.com.sistemavendas.model.Pedido;
 import br.com.sistemavendas.model.Solicita;
 import br.com.sistemavendas.type.DiaDaSemana;
 import br.com.sistemavendas.type.MeioDeContato;
+import br.com.sistemavendas.type.StatusPedido;
 import br.com.sistemavendas.type.TipoPagamento;
 
 public class PedidoDAOImpl implements PedidoDAOCustom  {
@@ -26,9 +28,24 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pedido> findPedidosAtivos() {
-		return em.createQuery("select p from Pedido p where (status_pedido = 'preparo' "
-				+ " or status_pedido = 'para_entrega')").getResultList();
+	public List<PedidoComCliente> findPedidosAtivos() {
+		List<Object[]> results = em.createNativeQuery("select p.id, c.nome_completo, c.torre, c.apartamento, p.data_pedido, p.dia_semana, p.cortesia, p.status_pedido   from Pedido p inner join Solicita s on p.id = s.pedido_id    inner join Cliente c on c.id = s.cliente_id    where (status_pedido = 'preparo' or status_pedido = 'para_entrega')").getResultList();
+		
+		List<PedidoComCliente> pedidos = new ArrayList<>();
+		for(Object[] result : results) {
+			PedidoComCliente pedido = new PedidoComCliente();
+			pedido.setId(((Integer) result[0]).longValue());
+			pedido.setNomeCompleto((String) result[1]);
+			pedido.setTorre((Integer) result[2]);
+			pedido.setApartamento((Integer) result[3]);
+			pedido.setData((Date) result[4]);
+			pedido.setDiaDaSemana(DiaDaSemana.valueOf((String) result[5]));
+			pedido.setCortesia((Boolean) result[6]);
+			pedido.setStatus(StatusPedido.valueOf((String) result[7]));
+			
+			pedidos.add(pedido);
+		}
+		return pedidos; 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,7 +70,7 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PedidosPorDia> findPedidosPorDia() {
-		List<Object[]> results = em.createNativeQuery("SELECT p.dia_semana, sum(pag.valor) as valor_total, count(p.id) as pedido, avg(pag.valor) as valor_medio FROM  Solicita s inner join Pedido p on s.pedido_id = p.id inner join Pagamento pag on pag.id = s.pagamento_id group by p.dia_semana order by sum(pag.valor) desc;").getResultList();
+		List<Object[]> results = em.createNativeQuery("SELECT p.dia_semana, sum(pag.valor) as valor_total, count(p.id) as pedido, avg(pag.valor) as valor_medio FROM  Solicita s inner join Pedido p on s.pedido_id = p.id inner join Pagamento pag on pag.id = s.pagamento_id     group by p.dia_semana     order by field(p.dia_semana, 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo')").getResultList();
 		
 		List<PedidosPorDia> pedidos = new ArrayList<>();
 		for(Object[] result : results) {
@@ -108,7 +125,6 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 			Solicita solicitacao = new Solicita(null, pedido, cliente, pagamento);
 			solicitacoes.add(solicitacao);
 		}
-		
 		return solicitacoes; 
 	}
 

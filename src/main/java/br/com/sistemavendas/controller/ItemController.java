@@ -1,5 +1,7 @@
 package br.com.sistemavendas.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistemavendas.DAO.ItemDAO;
+import br.com.sistemavendas.container.ItemVendido;
 import br.com.sistemavendas.model.Item;
 
 @Controller
@@ -54,4 +57,13 @@ public class ItemController {
 		model.addAttribute("itens", itens);
 		return "item/todos";
 	}
+	
+	// ITENS MAIS VENDIDOS
+	@RequestMapping("/mais-vendidos")
+	private String itensMaisVendidos(Model model) {
+		List<ItemVendido> itens = itemDAO.findItensMaisVendidos();
+		model.addAttribute("itens", itens);
+		return "item/maisVendidos";
+	}
+	
 }

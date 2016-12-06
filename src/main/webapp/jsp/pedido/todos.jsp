@@ -41,7 +41,7 @@
 								<td>${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td>${ativo.meioDeContato.toString()}</td>
-								<td>${ativo.status.toString()}</td>
+								<td>${StatusPedido.qualStatus(ativo.status)}</td>
 								<td><a
 									href="/pedido/info/todos/${ativo.id}/deletar"><i
 										class="fa fa-trash" aria-hidden="true"></i> </a></td>

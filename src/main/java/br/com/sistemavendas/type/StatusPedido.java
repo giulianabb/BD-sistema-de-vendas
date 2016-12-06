@@ -20,4 +20,13 @@ public enum StatusPedido {
 		return this.getStatus();
 	}
 
+	public static String qualStatus(String codigo) {
+		for(StatusPedido status : StatusPedido.values()) {
+			if(status.name().equals(codigo)) {
+				return status.getStatus();
+			}
+		}
+		return null;
+	}
+	
 }

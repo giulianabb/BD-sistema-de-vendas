@@ -1,5 +1,7 @@
 package br.com.sistemavendas.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistemavendas.DAO.ClienteDAO;
+import br.com.sistemavendas.container.GastoPorCliente;
 import br.com.sistemavendas.model.Cliente;
 
 @Controller
@@ -55,4 +58,12 @@ public class ClienteController {
 		return "cliente/todos";
 	}
 
+	// GASTOS POR CLIENTE
+	@RequestMapping("/gastos")
+	private String gastosPorCliente(Model model) {
+		List<GastoPorCliente> clientes = clienteDAO.findGastosPorCliente();
+		model.addAttribute("clientes", clientes);
+		return "cliente/gastos";
+	}
+	
 }
