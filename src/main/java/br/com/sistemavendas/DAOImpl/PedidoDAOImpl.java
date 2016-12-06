@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.sistemavendas.DAOCustom.PedidoDAOCustom;
+import br.com.sistemavendas.container.PedidosPorDia;
 import br.com.sistemavendas.container.PedidosPorTorre;
 import br.com.sistemavendas.model.Cliente;
 import br.com.sistemavendas.model.Pagamento;
@@ -49,10 +50,23 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 		return pedidos; 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pedido> findPedidosPorDia() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PedidosPorDia> findPedidosPorDia() {
+		List<Object[]> results = em.createNativeQuery("SELECT p.dia_semana, sum(pag.valor) as valor_total, count(p.id) as pedido, avg(pag.valor) as valor_medio FROM  Solicita s inner join Pedido p on s.pedido_id = p.id inner join Pagamento pag on pag.id = s.pagamento_id group by p.dia_semana order by sum(pag.valor) desc;").getResultList();
+		
+		List<PedidosPorDia> pedidos = new ArrayList<>();
+		for(Object[] result : results) {
+			PedidosPorDia pedido = new PedidosPorDia();
+			pedido.setDia(DiaDaSemana.valueOf((String)result[0]));
+			pedido.setValorTotal((Double)result[1]);
+			pedido.setNumPedidos(((BigInteger) result[2]).intValue());
+			pedido.setMediaPorPedido((Double) result[3]);
+			
+			pedidos.add(pedido);
+		}
+		
+		return pedidos; 
 	}
 
 	@SuppressWarnings("unchecked")
