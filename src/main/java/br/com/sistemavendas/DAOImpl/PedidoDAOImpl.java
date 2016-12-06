@@ -1,5 +1,6 @@
 package br.com.sistemavendas.DAOImpl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.sistemavendas.DAOCustom.PedidoDAOCustom;
+import br.com.sistemavendas.container.PedidosPorTorre;
 import br.com.sistemavendas.model.Cliente;
 import br.com.sistemavendas.model.Pagamento;
 import br.com.sistemavendas.model.Pedido;
@@ -28,10 +30,23 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 				+ " or status_pedido = 'para_entrega')").getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pedido> findPedidosPorTorre() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PedidosPorTorre> findPedidosPorTorre() {
+		List<Object[]> results = em.createNativeQuery("SELECT c.torre, sum(pag.valor) as valorTotal, count(p.id) as numPedidos, avg(pag.valor) as mediaPorPedido FROM Solicita s inner join Cliente c on s.cliente_id = c.id inner join Pedido p on s.pedido_id = p.id inner join Pagamento pag on pag.id = s.pagamento_id group by c.torre;").getResultList();
+		
+		List<PedidosPorTorre> pedidos = new ArrayList<>();
+		for(Object[] result : results) {
+			PedidosPorTorre pedido = new PedidosPorTorre();
+			pedido.setTorre((Integer)result[0]);
+			pedido.setValorTotal((Double)result[1]);
+			pedido.setNumPedidos(((BigInteger) result[2]).intValue());
+			pedido.setMediaPorPedido((Double) result[3]);
+			
+			pedidos.add(pedido);
+		}
+		
+		return pedidos; 
 	}
 
 	@Override

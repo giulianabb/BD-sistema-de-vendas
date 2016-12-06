@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistemavendas.DAO.PagamentoDAO;
 import br.com.sistemavendas.DAO.PedidoDAO;
+import br.com.sistemavendas.container.PedidosPorTorre;
 import br.com.sistemavendas.model.Pagamento;
 import br.com.sistemavendas.model.Pedido;
 import br.com.sistemavendas.model.Solicita;
@@ -60,13 +61,18 @@ public class AnalisePedidoController {
 	}
 	
 	// DELETAR PEDIDO - TODO deletar itensPedidos?
-	@RequestMapping(value="/ativos/{pedidoId}/deletar")
-	private String deletarPedido(@PathVariable(value = "pedidoId") Long pedidoId, Model model) {
+	@RequestMapping(value="/{pagina}/{pedidoId}/deletar")
+	private String deletarPedido(@PathVariable(value = "pedidoId") Long pedidoId, @PathVariable String pagina, Model model) {
 		pedidoDAO.delete(pedidoId);
-		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
-		model.addAttribute("ativos", ativos);
 		StatusPedido[] status = StatusPedido.values();
 		model.addAttribute("status", status);
+		if(pagina.equals("todos")) {
+			List<Pedido> todos = (List<Pedido>) pedidoDAO.findAll();
+			model.addAttribute("todos", todos);
+			return "pedido/todos";
+		}
+		List<Pedido> ativos = pedidoDAO.findPedidosAtivos();
+		model.addAttribute("ativos", ativos);
 		return "pedido/ativos";
 	}
 	
@@ -76,9 +82,7 @@ public class AnalisePedidoController {
 	private String todosPedidos(Model model) {
 		List<Pedido> todos = (List<Pedido>) pedidoDAO.findAll();
 		model.addAttribute("todos", todos);
-		StatusPedido[] status = StatusPedido.values();
-		model.addAttribute("status", status);
-		return "pedidos/todos";
+		return "pedido/todos";
 	}
 	
 	// PEDIDOS NÃO PAGOS
@@ -86,9 +90,7 @@ public class AnalisePedidoController {
 	@RequestMapping("/nao-pagos")
 	private String pedidosNaoPagos(Model model) {
 		List<Solicita> naoPagos = (List<Solicita>) pedidoDAO.findPedidosNaoPagos();
-		
 		model.addAttribute("naoPagos", naoPagos);
-		
 		return "pedido/semPagar";
 	}
 	
@@ -103,5 +105,13 @@ public class AnalisePedidoController {
 		List<Solicita> naoPagos = (List<Solicita>) pedidoDAO.findPedidosNaoPagos();
 		model.addAttribute("naoPagos", naoPagos);
 		return "pedido/semPagar";
+	}
+	
+	// PEDIDOS POR TORRE
+	@RequestMapping("/por/torre")
+	private String pedidosPorTorre(Model model) {
+		List<PedidosPorTorre> pedidos = pedidoDAO.findPedidosPorTorre();
+		model.addAttribute("pedidos", pedidos);
+		return "pedido/porTorre";
 	}
 }

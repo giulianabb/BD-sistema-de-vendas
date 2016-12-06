@@ -17,7 +17,7 @@
 	<section id="principal " class="page-row page-row-expanded">
 		<div class="container main">
 			<div class="center">
-				<h2>Pedidos ativos</h2>
+				<h2>Pedidos</h2>
 			</div>
 			<div class="table">
 				<table class="table">
@@ -33,7 +33,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${ativos}" var="ativo">
+						<c:forEach items="${todos}" var="ativo">
 							<tr>
 								<th scope="row">${ativo.id}</th>
 								<td><fmt:formatDate value="${ativo.data}"
@@ -41,29 +41,9 @@
 								<td>${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td>${ativo.meioDeContato.toString()}</td>
-								<td><form method="post"
-										action="/pedido/info/ativos/editar/${ativo.id}">
-										<div class="form-group">
-											<select name='statusNovo' class="form-control" >
-												<c:forEach items="${status}" var="situacao">
-													<c:choose>
-													  <c:when test="${!situacao.name().equals(ativo.status)}">
-													  	<option value="${situacao.name()}">${situacao.toString()}</option>
-													  </c:when>
-													  <c:otherwise>
-													    <option value="${situacao.name()}" selected>${situacao.toString()}</option>
-													  </c:otherwise>
-													</c:choose>
-												</c:forEach>
-											</select>
-											<div class="form-group">
-												<button class="btn btn-primary">Alterar status <i
-										class="fa fa-save" aria-hidden="true"></i></button>
-											</div>
-										</div>
-									</form></td>
+								<td>${ativo.status.toString()}</td>
 								<td><a
-									href="/pedido/info/ativo/${ativo.id}/deletar"><i
+									href="/pedido/info/todos/${ativo.id}/deletar"><i
 										class="fa fa-trash" aria-hidden="true"></i> </a></td>
 							</tr>
 
