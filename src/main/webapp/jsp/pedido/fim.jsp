@@ -12,8 +12,8 @@
 <!--/head-->
 <body>
 	<%@ include file="../../header-template.html"%>
-	<section id="home" class="container text-center">
-		<div class="container">
+	<section id="home" class="page-row page-row-expanded">
+		<div class="container main">
             <div class="center">        
                 <h2>Pedido salvo com sucesso!</h2>
                 <a class="btn btn-primary" href="/">Voltar à página inicial</a>

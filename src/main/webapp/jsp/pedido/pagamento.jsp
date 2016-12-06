@@ -12,8 +12,8 @@
 <!--/head-->
 <body>
 	<%@ include file="../../header-template.html"%>
-	<section>
-		<div class="container">
+	<section class="page-row page-row-expanded">
+		<div class="container main">
 			<div class="center">
 				<h2>Pagamento</h2>
 			</div>

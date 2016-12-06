@@ -12,8 +12,8 @@
 <!--/head-->
 <body>
 	<%@ include file="../../header-template.html"%>
-	<section id="dados-cliente">
-		<div class="container">
+	<section id="dados-cliente" class="page-row page-row-expanded">
+		<div class="container main">
 			<div class="center">
 				<h2>Novo cliente</h2>
 			</div>

@@ -12,13 +12,13 @@
 <!--/head-->
 <body>
 	<%@ include file="../header-template.html"%>
-	<section id="home" class="container text-center">
-		<div class="container">
+	<main id="home" class="container text-center page-row page-row-expanded">
+		<div class="container main">
             <div class="center">        
                 <h2>Bem vindo!</h2>
             </div> 
         </div><!--/.container-->
-	</section>
+	</main>
 	<!--/#error-->
 	<%@ include file="../footer-template.html"%>
 </body>

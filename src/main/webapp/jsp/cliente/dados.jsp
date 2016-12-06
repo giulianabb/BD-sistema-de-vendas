@@ -12,8 +12,8 @@
 
 <body>
 	<%@ include file="../../header-template.html" %>
-    <section id="principal">
-        <div class="container">
+    <section id="principal" class="page-row page-row-expanded">
+        <div class="container main">
             <div class="center">        
                 <h2>Cliente gravado com sucesso!</h2>
                 <a class="btn btn-primary" href="/">Voltar à página inicial</a>

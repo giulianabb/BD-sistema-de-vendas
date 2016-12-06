@@ -13,8 +13,8 @@
 
 <body>
 	<%@ include file="../../header-template.html"%>
-	<section id="principal">
-		<div class="container">
+	<main id="principal" class="page-row page-row-expanded">
+		<div class="container main">
 			<div class="center">
 				<h2>Itens cadastrados</h2>
 			</div>
@@ -48,7 +48,7 @@
 				</table>
 			</div>
 		</div>
-	</section>
+	</main>
 	<%@ include file="../../footer-template.html"%>
 </body>
 </html>
