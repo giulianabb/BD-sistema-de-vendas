@@ -29,7 +29,7 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PedidoComCliente> findPedidosAtivos() {
-		List<Object[]> results = em.createNativeQuery("select p.id, c.nome_completo, c.torre, c.apartamento, p.data_pedido, p.dia_semana, p.cortesia, p.status_pedido   from Pedido p inner join Solicita s on p.id = s.pedido_id    inner join Cliente c on c.id = s.cliente_id    where (status_pedido = 'preparo' or status_pedido = 'para_entrega')").getResultList();
+		List<Object[]> results = em.createNativeQuery("select p.id, c.nome_completo, c.torre, c.apartamento, p.data_pedido, p.dia_semana, p.cortesia, p.status_pedido   from pedido p inner join solicita s on p.id = s.pedido_id    inner join cliente c on c.id = s.cliente_id    where (status_pedido = 'preparo' or status_pedido = 'para_entrega' or status_pedido = 'aguardo')").getResultList();
 		
 		List<PedidoComCliente> pedidos = new ArrayList<>();
 		for(Object[] result : results) {
@@ -51,7 +51,7 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PedidosPorTorre> findPedidosPorTorre() {
-		List<Object[]> results = em.createNativeQuery("SELECT c.torre, sum(pag.valor) as valorTotal, count(p.id) as numPedidos, avg(pag.valor) as mediaPorPedido FROM Solicita s inner join Cliente c on s.cliente_id = c.id inner join Pedido p on s.pedido_id = p.id inner join Pagamento pag on pag.id = s.pagamento_id group by c.torre;").getResultList();
+		List<Object[]> results = em.createNativeQuery("SELECT c.torre, sum(pag.valor) as valorTotal, count(p.id) as numPedidos, avg(pag.valor) as mediaPorPedido FROM solicita s inner join cliente c on s.cliente_id = c.id inner join pedido p on s.pedido_id = p.id inner join pagamento pag on pag.id = s.pagamento_id group by c.torre;").getResultList();
 		
 		List<PedidosPorTorre> pedidos = new ArrayList<>();
 		for(Object[] result : results) {
@@ -70,7 +70,7 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PedidosPorDia> findPedidosPorDia() {
-		List<Object[]> results = em.createNativeQuery("SELECT p.dia_semana, sum(pag.valor) as valor_total, count(p.id) as pedido, avg(pag.valor) as valor_medio FROM  Solicita s inner join Pedido p on s.pedido_id = p.id inner join Pagamento pag on pag.id = s.pagamento_id     group by p.dia_semana     order by field(p.dia_semana, 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo')").getResultList();
+		List<Object[]> results = em.createNativeQuery("SELECT p.dia_semana, sum(pag.valor) as valor_total, count(p.id) as pedido, avg(pag.valor) as valor_medio FROM  solicita s inner join pedido p on s.pedido_id = p.id inner join pagamento pag on pag.id = s.pagamento_id     group by p.dia_semana     order by field(p.dia_semana, 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo')").getResultList();
 		
 		List<PedidosPorDia> pedidos = new ArrayList<>();
 		for(Object[] result : results) {
@@ -92,9 +92,9 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 		String sql = " select p.id pid, p.data_pedido, p.dia_semana, p.status_pedido, p.cortesia, p.meio_de_contato, "
 				+ " c.id cid, c.nome_completo, c.torre, c.apartamento, c.telefone, "
 				+ " pag.id pagid, pag.tipo, pag.valor, pag.efetuado, pag.data_pagamento from "
-				+ " Solicita s inner join Pedido p on p.id = s.pedido_id "
-				+ "  inner join Pagamento pag on s.pagamento_id = pag.id "
-				+ "  inner join Cliente c on s.cliente_id = c.id "
+				+ " solicita s inner join pedido p on p.id = s.pedido_id "
+				+ "  inner join pagamento pag on s.pagamento_id = pag.id "
+				+ "  inner join cliente c on s.cliente_id = c.id "
 				+ " where pag.efetuado=false";
 		
 		List<Object[]> results = em.createNativeQuery(sql).getResultList();

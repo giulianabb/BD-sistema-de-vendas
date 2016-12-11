@@ -18,7 +18,7 @@ public class ItemDAOImpl implements ItemDAOCustom {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ItemVendido> findItensMaisVendidos() {
-		List<Object[]> results = em.createNativeQuery("SELECT i.nome, i.sabor, i.preco,  count(ip.item_id) * ip.quantidade as quantidade, count(ip.item_id) * ip.quantidade * i.preco total  from Pedido p  inner join Item_pedido ip on p.id = ip.pedido_id  inner join Item i on i.id = ip.item_id     group by i.nome, i.sabor      order by i.nome").getResultList();
+		List<Object[]> results = em.createNativeQuery("SELECT i.nome, i.sabor, i.preco,  count(ip.item_id) * ip.quantidade as quantidade, count(ip.item_id) * ip.quantidade * i.preco total  from pedido p  inner join item_pedido ip on p.id = ip.pedido_id  inner join item i on i.id = ip.item_id     group by i.nome, i.sabor      order by i.nome").getResultList();
 		
 		List<ItemVendido> itens = new ArrayList<>();
 		for(Object[] result : results) {

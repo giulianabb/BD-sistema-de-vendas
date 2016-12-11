@@ -1,6 +1,7 @@
 package br.com.sistemavendas.type;
 
 public enum StatusPedido {
+	aguardo("Aguardando"),
 	preparo("Em preparo"),
 	para_entrega("Saiu para entrega"),
 	finalizado("Pedido finalizado");
