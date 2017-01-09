@@ -22,15 +22,15 @@
 				<form method="post" action="/pedido/salvar">
 					<div class="col-sm-5 col-sm-offset-1">
 					 	<div class="form-group ">
-					 	<label>Data do pedido</label>
-						 <div id="datetimepicker" class="input-append date input-group ">
-						    <input id="dataDesejada" type="text" name="data" class="form-control"  required="required" value=""></input>
-						    <span class="add-on input-group-addon">
-						      <i class="fa fa-calendar" aria-hidden="true"></i>
-						    </span>
-						 </div>
+						 	<label>Data do pedido</label>
+							<div id="datetimepicker" class="input-append date input-group ">
+							    <input id="dataDesejada" type="text" name="data" class="form-control"  required="required"></input>
+							    <span class="add-on input-group-addon">
+							      <i class="fa fa-calendar" aria-hidden="true"></i>
+							    </span>
+							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="display: none">
 							<label>Dia da semana </label><select id="diaSemana" name="diaDaSemana" class="form-control">
 								<c:forEach items="${diasSemana}" var="dia">
 									<option value="${dia.name()}">${dia.toString()}
