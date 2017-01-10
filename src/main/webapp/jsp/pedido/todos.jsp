@@ -29,7 +29,7 @@
 							<td>Cortesia</td>
 							<td>Meio de contato</td>
 							<td>Status</td>
-							<td></td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>

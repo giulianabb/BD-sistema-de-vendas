@@ -29,7 +29,7 @@
 							<td>Cortesia</td>
 							<td>Valor</td>
 							<td>Efetuado</td>
-							<td></td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>
