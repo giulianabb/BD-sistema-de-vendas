@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Pedidos ativos</title>
+<title>Todos os pedidos</title>
 </head>
 <!--/head-->
 
@@ -20,7 +20,7 @@
 				<h2>Pedidos</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>#</td>
@@ -54,5 +54,6 @@
 		</div>
 	</section>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>

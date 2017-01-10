@@ -20,7 +20,7 @@
 				<h2>Pedidos por torre</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_simples">
 					<thead>
 						<tr>
 							<td>Torre</td>
@@ -44,5 +44,6 @@
 		</div>
 	</section>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>
