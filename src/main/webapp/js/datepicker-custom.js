@@ -14,16 +14,19 @@ $(document).ready(function(){
 	
 	
 	$('#datetimepicker').data('datetimepicker').setLocalDate(new Date());
+	selecionaDiaSemana();
 	
-	function selecionaDiaSemana() {
+	$('input[name="efetuado"][type="checkbox"]').change(function() {
+		$('#data-pagamento').toggle();
+	});
+	
+})
+
+function selecionaDiaSemana() {
 		var dataPedido = $('#datetimepicker').data('datetimepicker').getLocalDate();
   	  	var diaSemana = $.fn.datetimepicker.dates['pt-BR'].daysForSelect[dataPedido.getDay()];
   	  	$('select#diaSemana option[value=' + diaSemana + ']').prop('selected', true);
 	}
-	
-	
-})
-
 
 	
       

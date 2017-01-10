@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.sistemavendas.type.DiaDaSemana;
 import br.com.sistemavendas.type.MeioDeContato;
 
@@ -23,6 +25,7 @@ public class Pedido {
 	private Long id;
 
 	@Column(name = "data_pedido")
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date data;
 
 	@Enumerated(EnumType.STRING)

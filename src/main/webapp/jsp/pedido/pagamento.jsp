@@ -12,7 +12,7 @@
 <!--/head-->
 <body>
 	<%@ include file="../../header-template.html"%>
-	<section class="page-row page-row-expanded">
+	<section id="dados-cliente" class="page-row page-row-expanded">
 		<div class="container main">
 			<div class="center">
 				<h2>Pagamento</h2>
@@ -47,18 +47,23 @@
 						</div>
 					</div>
 					<div class="col-sm-5">
-						<div class="form-group">
-							<label>Data do pagamento</label> 
-							<input type="date" name="dataPagamento" class="form-control" required="required">
-						</div>
 						<div class="form-group" style="padding-top: 20px;">
 							<label>Efetuado</label>
 							 <div class="material-switch pull-right">
-	                            <input id="someSwitchOptionSuccess" name="efetuado" type="checkbox"/>
+	                            <input id="someSwitchOptionSuccess" name="efetuado" type="checkbox" value="false"/>
 	                            <label for="someSwitchOptionSuccess" class="label-success"></label>
 	                        </div>
                         </div>
                         <input type="hidden" name="efetuado" value="false"/>
+						<div class="form-group" id="data-pagamento" style="display: none">
+							<label>Data do pagamento</label> 
+							<div id="datetimepicker" class="input-append date input-group">
+							    <input id="dataDesejada" type="text" name="dataPagamento" class="form-control"  value="${null}"></input>
+							    <span class="add-on input-group-addon">
+							      <i class="fa fa-calendar" aria-hidden="true"></i>
+							    </span>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -68,6 +73,6 @@
 	</section>
 	<!--/#contact-page-->
 	<%@ include file="../../footer-template.html"%>
-
+	<script src="/js/datepicker-custom.js"></script>
 </body>
 </html>

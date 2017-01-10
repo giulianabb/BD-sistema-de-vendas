@@ -73,6 +73,6 @@
 	</section>
 	<!--/#contact-page-->
 	<%@ include file="../../footer-template.html"%>
-	<script src="../../js/datepicker-custom.js"></script>
+	<script src="/js/datepicker-custom.js"></script>
 </body>
 </html>
