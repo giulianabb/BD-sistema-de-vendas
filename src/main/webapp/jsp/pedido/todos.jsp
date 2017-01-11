@@ -10,8 +10,6 @@
 <meta name="author" content="">
 <title>Todos os pedidos</title>
 </head>
-<!--/head-->
-
 <body>
 	<%@ include file="../../header-template.html"%>
 	<section id="principal " class="page-row page-row-expanded">
@@ -36,7 +34,9 @@
 						<c:forEach items="${todos}" var="ativo">
 							<tr>
 								<th scope="row">${ativo.id}</th>
-								<td><fmt:formatDate value="${ativo.data}"
+								<td data-order="<fmt:formatDate value="${ativo.data}"
+										pattern="yyyyMMdd hh:mm" />">								
+								<fmt:formatDate value="${ativo.data}"
 										pattern="dd/MM/YYYY hh:mm" /></td>
 								<td>${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
