@@ -20,7 +20,7 @@
 				<h2>Pedidos ativos</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>Nome do cliente</td>
@@ -29,7 +29,7 @@
 							<td>Dia da semana</td>
 							<td>Cortesia</td>
 							<td>Status</td>
-							<td></td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,11 +37,13 @@
 							<tr>
 								<td>${ativo.nomeCompleto } </td>
 								<td>Torre ${ativo.torre } / Apt. ${ativo.apartamento }</td>
-								<td><fmt:formatDate value="${ativo.data}"
+								<td data-order="<fmt:formatDate value="${ativo.data}"
+										pattern="yyyyMMdd"/>">
+								<fmt:formatDate value="${ativo.data}"
 										pattern="dd/MM/YYYY" /></td>
 								<td>${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
-								<td><form method="post"
+								<td><form method="post" class="form-inline"
 										action="/pedido/info/ativos/editar/${ativo.id}">
 										<div class="form-group">
 											<select name='statusNovo' class="form-control" >
@@ -56,10 +58,7 @@
 													</c:choose>
 												</c:forEach>
 											</select>
-											<div class="form-group">
-												<button class="btn btn-primary">Alterar status <i
-										class="fa fa-save" aria-hidden="true"></i></button>
-											</div>
+											<button class="btn btn-primary">Alterar status <i class="fa fa-save" aria-hidden="true"></i></button>
 										</div>
 									</form></td>
 								<td><a
@@ -74,5 +73,6 @@
 		</div>
 	</section>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>
