@@ -30,7 +30,7 @@
 					<tbody>
 						<c:forEach items="${clientes}" var="cliente">
 							<tr>
-								<td class="cliente-id"><a href="/cliente/editar/${cliente.id}">${cliente.id}</a></td>
+								<td class="elemento-id"><a href="/cliente/editar/${cliente.id}">${cliente.id}</a></td>
 								<td>${cliente.nomeCompleto}</td>
 								<td data-order="${cliente.torre}.<fmt:formatNumber minIntegerDigits="3" value="${cliente.apartamento}"/>">
 								Torre ${cliente.torre} / Apt. ${cliente.apartamento}</td>

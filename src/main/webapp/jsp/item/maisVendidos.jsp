@@ -19,11 +19,11 @@
 				<h2>Itens mais vendidos</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>Nome</td>
-							<td>Sabor</td>
+							<td data-orderable="false">Sabor</td>
 							<td>Preço</td>
 							<td>Unidades vendidas</td>
 							<td>Total arrecadado</td>
@@ -32,13 +32,12 @@
 					<tbody>
 						<c:forEach items="${itens}" var="item">
 							<tr>
-								<td>${item.nome}</td>
+								<td data-order="${item.nome} ${item.sabor}">${item.nome}</td>
 								<td>${item.sabor}</td>
 								<td><fmt:formatNumber value="${item.preco}" type="currency" currencySymbol="R$" /> </td>
 								<td>${item.quantidade }</td>
 								<td><fmt:formatNumber value="${item.total}" type="currency" currencySymbol="R$" /></td>
 							</tr>
-
 						</c:forEach>
 					</tbody>
 				</table>
@@ -46,5 +45,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>

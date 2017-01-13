@@ -19,30 +19,28 @@
 				<h2>Itens cadastrados</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>#</td>
 							<td>Nome</td>
-							<td>Descrição</td>
-							<td>Sabor</td>
+							<td data-orderable="false">Sabor</td>
+							<td data-orderable="false">Descrição</td>
 							<td>Preço</td>
-							<td></td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${itens}" var="item">
 							<tr>
 								
-								<th scope="row"><a href="/item/editar/${item.id}">${item.id}</a></th>
-								<td>${item.nome}</td>
-								<td>${item.descricao}</td>
+								<td class="elemento-id"><a href="/item/editar/${item.id}">${item.id}</a></td>
+								<td data-order="${item.nome} ${item.sabor}">${item.nome}</td>
 								<td>${item.sabor}</td>
+								<td>${item.descricao}</td>
 								<td><fmt:formatNumber value="${item.preco}" type="currency" currencySymbol="R$" /> </td>
-								<td><a href="/item/deletar/${item.id}"><i class="fa fa-trash" aria-hidden="true"></i>
-								</a></td>
+								<td><a href="/item/deletar/${item.id}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 							</tr>
-
 						</c:forEach>
 					</tbody>
 				</table>
@@ -50,5 +48,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>
