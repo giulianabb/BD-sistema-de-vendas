@@ -41,7 +41,7 @@
 								class="form-control" required="required">
 						</div>
 						<div class="form-group">
-							<label>Apartamento</label> <input type="number" min="1" max="266"
+							<label>Apartamento</label> <input type="number" min="11" max="266"
 								name="apartamento" class="form-control" required="required">
 						</div>
 					</div>
