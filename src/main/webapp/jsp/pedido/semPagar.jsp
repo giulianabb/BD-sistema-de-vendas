@@ -36,7 +36,8 @@
 						<c:forEach items="${naoPagos}" var="solicitacao">
 							<tr>
 								<td>${solicitacao.cliente.nomeCompleto}</td>
-								<td>Torre ${solicitacao.cliente.torre} / Apt. ${solicitacao.cliente.apartamento} </td>
+								<td data-order="${ativo.torre}.<fmt:formatNumber minIntegerDigits="3" value="${ativo.apartamento}"/>" >
+									Torre ${solicitacao.cliente.torre} / Apt. ${solicitacao.cliente.apartamento} </td>
 								<td><fmt:formatDate value="${solicitacao.pedido.data}"
 										pattern="dd/MM/YYYY hh:mm" /></td>
 								<td> ${solicitacao.pedido.cortesia==true? "Sim" : "Não" }</td>

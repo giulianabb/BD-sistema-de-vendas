@@ -38,7 +38,7 @@
 										pattern="yyyyMMdd hh:mm" />">								
 								<fmt:formatDate value="${ativo.data}"
 										pattern="dd/MM/YYYY hh:mm" /></td>
-								<td>${ativo.diaDaSemana.toString()}</td>
+								<td data-order="${ativo.diaDaSemana.ordinal()}">${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td>${ativo.meioDeContato.toString()}</td>
 								<td>${StatusPedido.qualStatus(ativo.status)}</td>

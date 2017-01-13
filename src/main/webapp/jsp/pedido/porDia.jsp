@@ -32,7 +32,7 @@
 					<tbody>
 						<c:forEach items="${pedidos}" var="pedido">
 							<tr>
-								<td>${pedido.dia.toString()}</td>
+								<td data-order="${pedido.dia.ordinal()}">${pedido.dia.toString()}</td>
 								<td>${pedido.numPedidos}</td>
 								<td><fmt:formatNumber type="currency" currencySymbol="R$" value="${pedido.valorTotal}"/>
 								<td><fmt:formatNumber type="currency" currencySymbol="R$" value="${pedido.mediaPorPedido}"/>

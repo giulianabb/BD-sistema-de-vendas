@@ -36,12 +36,13 @@
 						<c:forEach items="${ativos}" var="ativo">
 							<tr>
 								<td>${ativo.nomeCompleto } </td>
-								<td>Torre ${ativo.torre } / Apt. ${ativo.apartamento }</td>
+								<td data-order="${ativo.torre}.<fmt:formatNumber minIntegerDigits="3" value="${ativo.apartamento}"/>">
+									Torre ${ativo.torre} / Apt. ${ativo.apartamento}</td>
 								<td data-order="<fmt:formatDate value="${ativo.data}"
 										pattern="yyyyMMdd"/>">
 								<fmt:formatDate value="${ativo.data}"
 										pattern="dd/MM/YYYY" /></td>
-								<td>${ativo.diaDaSemana.toString()}</td>
+								<td data-order="${ativo.diaDaSemana.ordinal()}">${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td><form method="post" class="form-inline"
 										action="/pedido/info/ativos/editar/${ativo.id}">
