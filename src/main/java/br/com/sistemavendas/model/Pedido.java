@@ -25,7 +25,7 @@ public class Pedido {
 	private Long id;
 
 	@Column(name = "data_pedido")
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern="dd/MM/yyyy hh:mm:ss")
 	private Date data;
 
 	@Enumerated(EnumType.STRING)

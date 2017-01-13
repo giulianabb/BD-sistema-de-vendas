@@ -43,7 +43,7 @@
 								<td>${ativo.meioDeContato.toString()}</td>
 								<td>${StatusPedido.qualStatus(ativo.status)}</td>
 								<td>
-									<form action="/pedido/info/ativo/${ativo.id}/deletar" method="post">
+									<form action="/pedido/info/todos/${ativo.id}/deletar" method="post">
 										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
 									</form>
 								</td>
