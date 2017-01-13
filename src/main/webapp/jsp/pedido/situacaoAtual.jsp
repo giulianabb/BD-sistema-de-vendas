@@ -36,7 +36,7 @@
 						<c:set var="precoFinal" value="0"/>
 						<c:forEach items="${itensPedidos}" var="itemPedido">
 							<tr>
-								<th scope="row"><a href="/pedido/${pedido.id}/editar/${itemPedido.id}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								<th scope="row"><a href="/pedido/${pedidoId}/editar/${itemPedido.id}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 </a></th>
 								<td>${itemPedido.item.nome}</td>
 								<td>${itemPedido.item.sabor}</td>
@@ -45,8 +45,11 @@
 								<td><fmt:formatNumber value="${itemPedido.item.preco}" type="currency" currencySymbol="R$" /></td>
 								<td><fmt:formatNumber value="${itemPedido.item.preco * itemPedido.quantidade}" type="currency" currencySymbol="R$" />
 								<c:set var="precoFinal" value="${precoFinal + itemPedido.item.preco * itemPedido.quantidade}"/> </td>
-								<td><a href="/pedido/${pedido.id}/deletar/item/${itemPedido.id}"><i class="fa fa-trash" aria-hidden="true"></i>
-								</a></td>
+								<td>
+									<form action="/pedido/${pedidoId}/deletar/item/${itemPedido.id}" method="post">
+										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+									</form>
+								</td>
 							</tr>
 
 						</c:forEach>
@@ -57,8 +60,8 @@
 				<h2>Valor total: <fmt:formatNumber type="currency" value="${precoFinal}" currencySymbol="R$"/> </h2>
 			</div>
 			<div class="center"> 
-				<a class="btn btn-primary" href="/pedido/${pedido.id}/novo/item">Adicionar item</a>
-				<a class="btn btn-primary" href="/pedido/${pedido.id}/pagamento/dados">Ir para pagamento</a>
+				<a class="btn btn-primary" href="/pedido/${pedidoId}/novo/item">Adicionar item</a>
+				<a class="btn btn-primary" href="/pedido/${pedidoId}/pagamento/dados">Ir para pagamento</a>
             </div><!--/.row-->
 		</div>
 	</section>

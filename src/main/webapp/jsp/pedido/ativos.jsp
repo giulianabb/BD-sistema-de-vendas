@@ -46,25 +46,29 @@
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td><form method="post" class="form-inline"
 										action="/pedido/info/ativos/editar/${ativo.id}">
-										<div class="form-group">
-											<select name='statusNovo' class="form-control" >
-												<c:forEach items="${status}" var="situacao">
-													<c:choose>
-													  <c:when test="${!situacao.name().equals(ativo.status.name())}">
-													  	<option value="${situacao.name()}">${situacao.toString()}</option>
-													  </c:when>
-													  <c:otherwise>
-													    <option value="${situacao.name()}" selected>${situacao.toString()}</option>
-													  </c:otherwise>
-													</c:choose>
-												</c:forEach>
-											</select>
-											<button class="btn btn-primary">Alterar status <i class="fa fa-save" aria-hidden="true"></i></button>
-										</div>
+											<div class="form-group">
+												<select name='statusNovo' class="form-control" >
+													<c:forEach items="${status}" var="situacao">
+														<c:choose>
+														  <c:when test="${!situacao.name().equals(ativo.status.name())}">
+														  	<option value="${situacao.name()}">${situacao.toString()}</option>
+														  </c:when>
+														  <c:otherwise>
+														    <option value="${situacao.name()}" selected>${situacao.toString()}</option>
+														  </c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</select>
+											</div>
+											<div class="form-group" style="margin-left: 10px;">
+												<button class="btn btn-danger">Alterar status <i class="fa fa-save" aria-hidden="true"></i></button>
+											</div>
 									</form></td>
-								<td><a
-									href="/pedido/info/ativo/${ativo.id}/deletar"><i
-										class="fa fa-trash" aria-hidden="true"></i> </a></td>
+								<td>
+									<form action="/pedido/info/ativo/${ativo.id}/deletar" method="post">
+										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+									</form>
+								</td>
 							</tr>
 
 						</c:forEach>

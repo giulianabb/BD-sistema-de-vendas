@@ -33,9 +33,14 @@ public class ItemController {
 			item.setId(id);
 		}
 		item = itemDAO.save(item);
-		return "item/dados";
+		return "redirect:/item/sucesso";
 	}
 
+	@RequestMapping("/sucesso")
+	private String sucessoItem(Model model) {
+		return "item/dados";
+	}
+	
 	@RequestMapping("/todos")
 	private String mostrarTodosItens(Model model) {
 		Iterable<Item> itens = itemDAO.findAll();
@@ -50,12 +55,10 @@ public class ItemController {
 		return "item/editar";
 	}
 	
-	@RequestMapping("/deletar/{id}")
+	@RequestMapping(value="/deletar/{id}", method=RequestMethod.POST)
 	private String deletarItem(Model model, @PathVariable("id") Long id) {
 		itemDAO.delete(id);
-		Iterable<Item> itens = itemDAO.findAll();
-		model.addAttribute("itens", itens);
-		return "item/todos";
+		return "redirect:/item/todos";
 	}
 	
 	// ITENS MAIS VENDIDOS

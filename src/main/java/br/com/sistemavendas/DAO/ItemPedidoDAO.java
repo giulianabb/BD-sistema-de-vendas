@@ -11,4 +11,5 @@ import br.com.sistemavendas.model.Pedido;
 public interface ItemPedidoDAO extends CrudRepository<ItemPedido, Long>, ItemPedidoDAOCustom{
 
 	public List<ItemPedido> findByPedido(Pedido pedido);
+	public List<ItemPedido> findByPedidoId(Long pedidoId);
 }

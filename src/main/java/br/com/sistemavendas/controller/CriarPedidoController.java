@@ -73,10 +73,7 @@ public class CriarPedidoController {
 			pedido.setId(id);
 		}
 		pedido = pedidoDAO.save(pedido);
-		
-		model.addAttribute("itens", itemDAO.findAll());
-		model.addAttribute("pedidoId", pedido.getId());
-		return "pedido/adicionarItem";
+		return "redirect:/pedido/" + pedido.getId() + "/novo/item";
 	}
 	
 	// ADICIONAR ITENS
@@ -95,9 +92,15 @@ public class CriarPedidoController {
 		
 		itemPedido = itemPedidoDAO.save(itemPedido);
 		
-		List<ItemPedido> itensPedidos = itemPedidoDAO.findByPedido(pedido);
+		return "redirect:/pedido/" + pedidoId + "/status";
+	}
+	
+	@RequestMapping(value="/{pedidoId}/status")
+	private String statusPedido(@PathVariable("pedidoId") Long pedidoId, Model model) {
+		List<ItemPedido> itensPedidos = itemPedidoDAO.findByPedidoId(pedidoId);
 		model.addAttribute("itensPedidos", itensPedidos);
-		model.addAttribute("pedido", pedido);
+		model.addAttribute("pedidoId", pedidoId);
+		
 		return "pedido/situacaoAtual";
 	}
 	
@@ -112,16 +115,11 @@ public class CriarPedidoController {
 		return "pedido/editarItem";
 	}
 	
-	@RequestMapping("/{pedidoId}/deletar/item/{itemPedidoId}")
+	@RequestMapping(value="/{pedidoId}/deletar/item/{itemPedidoId}", method=RequestMethod.POST)
 	private String deletarItem(@PathVariable(value="itemPedidoId") Long itemPedidoId, 
 			@PathVariable(value = "pedidoId") Long pedidoId, Model model) {
 		itemPedidoDAO.delete(itemPedidoId);
-		
-		Pedido pedido = pedidoDAO.findOne(pedidoId);
-		model.addAttribute("pedido", pedido);
-		List<ItemPedido> itensPedidos = itemPedidoDAO.findByPedido(pedido);
-		model.addAttribute("itensPedidos", itensPedidos);
-		return "pedido/situacaoAtual";
+		return "redirect:/pedido/" + pedidoId + "/status";
 	}
 	
 	// PAGAMENTO
@@ -132,7 +130,7 @@ public class CriarPedidoController {
 		model.addAttribute("pedidoId", pedidoId);
 		model.addAttribute("tipoPagamento", TipoPagamento.values());
 		
-		Iterable<Cliente> clientes = clienteDAO.findAll();
+		Iterable<Cliente> clientes = clienteDAO.findAllOrderByTorreAndAptAsc();
 		model.addAttribute("clientes", clientes);
 		
 		Double precofinal = pedidoService.calcularPrecoTotal(pedidoId);
@@ -158,27 +156,37 @@ public class CriarPedidoController {
 		}
 		
 		Pagamento pagamento = new Pagamento(null, tipo, valor, efetuado, dataPagamento);
-		
 		pagamento = pagamentoDAO.save(pagamento);
 		
 		Solicita solicita = new Solicita(null, pedido, cliente, pagamento);
 		solicita = solicitaDAO.save(solicita);
 		
-		Iterable<Funcionario> funcionarios = funcionarioDAO.findAll();
-		model.addAttribute("funcionarios", funcionarios);
-		model.addAttribute("funcoes", Funcao.values());
-		
-		return "pedido/funcionarios";
+		return "redirect:/pedido/" + pedidoId + "/servico";
 	}
 	
 	// ADICIONA SERVIÇO
 	
-	@RequestMapping(value="/{pedidoId}/servico", method = RequestMethod.POST)
+	@RequestMapping(value="/{pedidoId}/servico")
+	private String mostrarServico(Model model, @PathVariable(value="pedidoId") Long pedidoId) {
+		Iterable<Funcionario> funcionarios = funcionarioDAO.findAll();
+		model.addAttribute("funcionarios", funcionarios);
+		model.addAttribute("funcoes", Funcao.values());
+		model.addAttribute("pedidoId", pedidoId);
+		
+		return "pedido/funcionarios";
+	}
+	
+	
+	@RequestMapping(value="/{pedidoId}/servico/salvar", method = RequestMethod.POST)
 	private String adicionarServico(@PathVariable(value = "pedidoId") Long pedidoId,
 			@RequestParam Long funcionario_atendimento, @RequestParam Long funcionario_cozinha,
 			@RequestParam Long funcionario_entrega, Model model) {
-		
 		pedidoService.montaServicos(funcionario_atendimento, funcionario_cozinha, funcionario_entrega, pedidoId);
+		return "redirect:/pedido/sucesso";
+	}
+	
+	@RequestMapping("/sucesso")
+	private String sucessoPedido(Model model) {
 		return "pedido/fim";
 	}
 	
@@ -186,7 +194,7 @@ public class CriarPedidoController {
 	// INIT BINDER PARA FORMATAR A DATA RECEBIDA
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 }

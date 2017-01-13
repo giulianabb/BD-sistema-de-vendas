@@ -30,7 +30,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label>Quantidade</label> <input type="number" name="quantidade"
+							<label>Quantidade</label> <input type="number" name="quantidade" min="0"
 								class="form-control" required="required">
 						</div>
 						<div class="form-group">

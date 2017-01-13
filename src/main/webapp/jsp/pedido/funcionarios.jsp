@@ -19,7 +19,7 @@
 			</div>
 			<div class="row contact-wrap">
 				<div class="status alert alert-success" style="display: none"></div>
-				<form method="post" action="/pedido/${pedidoId}/servico">
+				<form method="post" action="/pedido/${pedidoId}/servico/salvar">
 					<div class="col-sm-5 col-sm-offset-1">
 						<c:forEach items="${funcoes}" var="funcao">
 							<div class="form-group">
@@ -43,6 +43,5 @@
 	</section>
 	<!--/#contact-page-->
 	<%@ include file="../../footer-template.html"%>
-
 </body>
 </html>

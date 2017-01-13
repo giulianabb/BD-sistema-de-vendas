@@ -39,7 +39,11 @@
 								<td>${item.sabor}</td>
 								<td>${item.descricao}</td>
 								<td><fmt:formatNumber value="${item.preco}" type="currency" currencySymbol="R$" /> </td>
-								<td><a href="/item/deletar/${item.id}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+								<td>
+									<form action="/item/deletar/${item.id}" method="post">
+										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

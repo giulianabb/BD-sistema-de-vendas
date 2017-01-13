@@ -29,9 +29,14 @@ public class FuncionarioController {
 			funcionario.setId(id);
 		}
 		funcionario = funcionarioDAO.save(funcionario);
-		return "funcionario/dados";
+		return "redirect:/funcionario/sucesso";
 	}
 
+	@RequestMapping("/sucesso")
+	private String sucessoFuncionario(Model model) {
+		return "funcionario/dados";
+	}
+	
 	@RequestMapping("/todos")
 	private String mostrarTodosClientes(Model model) {
 		Iterable<Funcionario> funcionarios = funcionarioDAO.findAll();
@@ -46,12 +51,10 @@ public class FuncionarioController {
 		return "funcionario/editar";
 	}
 	
-	@RequestMapping("/deletar/{id}")
+	@RequestMapping(value="/deletar/{id}", method=RequestMethod.POST)
 	private String deletarFuncionario(Model model, @PathVariable("id") Long id) {
 		funcionarioDAO.delete(id);
-		Iterable<Funcionario> funcionarios = funcionarioDAO.findAll();
-		model.addAttribute("funcionarios", funcionarios);
-		return "funcionario/todos";
+		return "redirect:/funcionario/todos";
 	}
 	
 }

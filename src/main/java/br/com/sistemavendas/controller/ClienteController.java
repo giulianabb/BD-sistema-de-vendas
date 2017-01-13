@@ -33,8 +33,14 @@ public class ClienteController {
 			cliente.setId(id);
 		}
 		cliente = clienteDAO.save(cliente);
+		return "redirect:/cliente/sucesso";
+	}
+	
+	@RequestMapping("/sucesso")
+	private String sucessoCliente(Model model) {
 		return "cliente/dados";
 	}
+	
 
 	@RequestMapping("/todos")
 	private String mostrarTodosClientes(Model model) {
@@ -50,12 +56,10 @@ public class ClienteController {
 		return "cliente/editar";
 	}
 	
-	@RequestMapping("/deletar/{id}")
+	@RequestMapping(value="/deletar/{id}", method=RequestMethod.POST)
 	private String deletarCliente(Model model, @PathVariable("id") Long id) {
 		clienteDAO.delete(id);
-		Iterable<Cliente> clientes = clienteDAO.findAll();
-		model.addAttribute("clientes", clientes);
-		return "cliente/todos";
+		return "redirect:/cliente/todos";
 	}
 
 	// GASTOS POR CLIENTE

@@ -39,8 +39,11 @@
 								<td data-mask="000.000.000-00">${funcionario.cpf}</td>
 								<td>${funcionario.rg}</td>
 								<td>${funcionario.endereco} </td>
-								<td><a href="/funcionario/deletar/${funcionario.id}"><i class="fa fa-trash" aria-hidden="true"></i>
-								</a></td>
+								<td>
+									<form action="/funcionario/deletar/${funcionario.id}" method="post">
+										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+									</form>
+								</td>
 							</tr>
 
 						</c:forEach>

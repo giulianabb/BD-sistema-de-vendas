@@ -35,8 +35,11 @@
 								<td data-order="${cliente.torre}.<fmt:formatNumber minIntegerDigits="3" value="${cliente.apartamento}"/>">
 								Torre ${cliente.torre} / Apt. ${cliente.apartamento}</td>
 								<td class="sp_celphones" data-filter="${cliente.telefone}"> ${cliente.telefone}</td>
-								<td><a href="/cliente/deletar/${cliente.id}"><i class="fa fa-trash" aria-hidden="true"></i>
-								</a></td>
+								<td>
+									<form action="/cliente/deletar/${cliente.id}" method="post">
+										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+									</form>
+								</td>
 							</tr>
 
 						</c:forEach>

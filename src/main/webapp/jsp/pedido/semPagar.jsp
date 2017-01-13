@@ -43,15 +43,16 @@
 								<td> ${solicitacao.pedido.cortesia==true? "Sim" : "Não" }</td>
 								<td><fmt:formatNumber type="currency" currencySymbol="R$" value="${solicitacao.pagamento.valor}"/>
 								<td> ${solicitacao.pagamento.efetuado==true? "Sim" : "Não" }</td>
-								<td><form method="get" style="margin-top: -10px"
-										action="/pedido/info/nao-pagos/editar/${solicitacao.pagamento.id}">
+								<td>
+									<form method="post" style="margin-top: -10px" action="/pedido/info/nao-pagos/editar/${solicitacao.pagamento.id}">
 										<div class="form-group">
 											<div class="form-group">
-												<button class="btn btn-primary">Pagamento realizado   <i
-										class="fa fa-check" aria-hidden="true"></i></button>
+												<button class="btn btn-primary">Pagamento realizado   
+												<i class="fa fa-check" aria-hidden="true"></i></button>
 											</div>
 										</div>
-									</form></td>
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

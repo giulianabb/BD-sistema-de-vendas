@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistemavendas.DAO.PagamentoDAO;
@@ -40,34 +41,22 @@ public class AnalisePedidoController {
 		return "pedido/ativos";
 	}
 	
-	@RequestMapping("/ativos/editar/{pedidoId}")
+	@RequestMapping(value="/ativos/editar/{pedidoId}", method=RequestMethod.POST)
 	private String atualizarStatus(@PathVariable Long pedidoId, @RequestParam StatusPedido statusNovo, Model model) {
 		Pedido pedido = pedidoDAO.findOne(pedidoId);	
 		pedido.setStatus(statusNovo.name());
 		pedidoDAO.save(pedido);
-		
-		List<PedidoComCliente> ativos = pedidoDAO.findPedidosAtivos();
-		
-		model.addAttribute("ativos", ativos);
-		StatusPedido[] status = StatusPedido.values();
-		model.addAttribute("status", status);
-		return "pedido/ativos";
+		return "redirect:/pedido/info/ativos";
 	}
 	
-	// DELETAR PEDIDO - TODO deletar itensPedidos?
-	@RequestMapping(value="/{pagina}/{pedidoId}/deletar")
+	// TODO deletar itensPedidos?
+	@RequestMapping(value="/{pagina}/{pedidoId}/deletar", method=RequestMethod.POST)
 	private String deletarPedido(@PathVariable(value = "pedidoId") Long pedidoId, @PathVariable String pagina, Model model) {
 		pedidoDAO.delete(pedidoId);
-		StatusPedido[] status = StatusPedido.values();
-		model.addAttribute("status", status);
 		if(pagina.equals("todos")) {
-			List<Pedido> todos = (List<Pedido>) pedidoDAO.findAll();
-			model.addAttribute("todos", todos);
-			return "pedido/todos";
+			return "redirect:/pedido/info/todos";
 		}
-		List<PedidoComCliente> ativos = pedidoDAO.findPedidosAtivos();
-		model.addAttribute("ativos", ativos);
-		return "pedido/ativos";
+		return "redirect:/pedido/info/ativos";
 	}
 	
 	// TODOS
@@ -88,17 +77,13 @@ public class AnalisePedidoController {
 		return "pedido/semPagar";
 	}
 	
-	@RequestMapping("/nao-pagos/editar/{pagamentoId}")
+	@RequestMapping(value="/nao-pagos/editar/{pagamentoId}", method=RequestMethod.POST)
 	private String salvarComoPago(@PathVariable(value="pagamentoId") Long pagamentoId, Model model) {
 		Pagamento pagamento = pagamentoDAO.findOne(pagamentoId);
 		pagamento.setEfetuado(true);
 		pagamento.setDataPagamento(new Date());
-		
 		pagamentoDAO.save(pagamento);
-		
-		List<Solicita> naoPagos = (List<Solicita>) pedidoDAO.findPedidosNaoPagos();
-		model.addAttribute("naoPagos", naoPagos);
-		return "pedido/semPagar";
+		return "redirect:/pedido/info/nao-pagos";
 	}
 	
 	// PEDIDOS POR TORRE
