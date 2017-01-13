@@ -17,12 +17,11 @@
 				<h2>Gastos por cliente</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>Nome completo</td>
-							<td>Torre</td>
-							<td>Apartamento</td>
+							<td>Torre / Apartamento</td>
 							<td>Quantidade de pedidos feitos</td>
 							<td>Total gasto</td>
 						</tr>
@@ -31,8 +30,8 @@
 						<c:forEach items="${clientes}" var="cliente">
 							<tr>
 								<td>${cliente.nomeCompleto}</td>
-								<td>${cliente.torre}</td>
-								<td>${cliente.apartamento}</td>
+								<td data-order="${cliente.torre}.<fmt:formatNumber minIntegerDigits="3" value="${cliente.apartamento}"/>">
+								Torre ${cliente.torre} / Apt. ${cliente.apartamento}</td>
 								<td>${cliente.numPedidos } </td>
 								<td><fmt:formatNumber type="currency"  currencySymbol="R$" value="${cliente.totalGasto}"/> </td>
 							</tr>
@@ -43,5 +42,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>

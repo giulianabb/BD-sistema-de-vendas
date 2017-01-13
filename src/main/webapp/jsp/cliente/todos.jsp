@@ -17,25 +17,23 @@
 				<h2>Clientes cadastrados</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>#</td>
 							<td>Nome completo</td>
-							<td>Torre</td>
-							<td>Apartamento</td>
-							<td>Telefone</td>
-							<td></td>
+							<td>Torre / Apartamento</td>
+							<td data-orderable="false">Telefone</td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${clientes}" var="cliente">
 							<tr>
-								
-								<th scope="row"><a href="/cliente/editar/${cliente.id}">${cliente.id}</a></th>
+								<td class="cliente-id"><a href="/cliente/editar/${cliente.id}">${cliente.id}</a></td>
 								<td>${cliente.nomeCompleto}</td>
-								<td>${cliente.torre}</td>
-								<td>${cliente.apartamento}</td>
+								<td data-order="${cliente.torre}.<fmt:formatNumber minIntegerDigits="3" value="${cliente.apartamento}"/>">
+								Torre ${cliente.torre} / Apt. ${cliente.apartamento}</td>
 								<td>${cliente.telefone}</td>
 								<td><a href="/cliente/deletar/${cliente.id}"><i class="fa fa-trash" aria-hidden="true"></i>
 								</a></td>
@@ -48,5 +46,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>
