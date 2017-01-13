@@ -6,7 +6,7 @@
 $(document).ready(function(){
 	
 	$('#datetimepicker').datetimepicker({
-        format: 'dd/MM/yyyy hh:mm:ss',
+        format: 'dd/MM/yyyy HH:mm:ss',
         pickDate: true,
         pickTime: false,
         language: 'pt-BR'

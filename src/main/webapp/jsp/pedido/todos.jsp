@@ -35,9 +35,9 @@
 							<tr>
 								<th scope="row">${ativo.id}</th>
 								<td data-order="<fmt:formatDate value="${ativo.data}"
-										pattern="yyyyMMdd hh:mm" />">								
+										pattern="yyyyMMdd HH:mm" />">							
 								<fmt:formatDate value="${ativo.data}"
-										pattern="dd/MM/YYYY hh:mm" /></td>
+										pattern="dd/MM/YYYY HH:mm" /></td>
 								<td data-order="${ativo.diaDaSemana.ordinal()}">${ativo.diaDaSemana.toString()}</td>
 								<td> ${ativo.cortesia==true? "Sim" : "Não" }</td>
 								<td>${ativo.meioDeContato.toString()}</td>

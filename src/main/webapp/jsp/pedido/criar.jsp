@@ -73,6 +73,8 @@
 	</section>
 	<!--/#contact-page-->
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	<script src="/js/datepicker-custom.js"></script>
 </body>
 </html>
