@@ -34,7 +34,7 @@
 								<td>${cliente.nomeCompleto}</td>
 								<td data-order="${cliente.torre}.<fmt:formatNumber minIntegerDigits="3" value="${cliente.apartamento}"/>">
 								Torre ${cliente.torre} / Apt. ${cliente.apartamento}</td>
-								<td>${cliente.telefone}</td>
+								<td class="sp_celphones" data-filter="${cliente.telefone}"> ${cliente.telefone}</td>
 								<td><a href="/cliente/deletar/${cliente.id}"><i class="fa fa-trash" aria-hidden="true"></i>
 								</a></td>
 							</tr>

@@ -28,7 +28,7 @@
 								class="form-control" required="required">
 						</div>
 						<div class="form-group">
-							<label>Telefone</label> <input type="number" class="form-control"
+							<label>Telefone</label> <input type="text" class="form-control sp_celphones"
 								name="telefone" value="${cliente.telefone}">
 						</div>
 						<div class="form-group">
@@ -38,12 +38,12 @@
 					</div>
 					<div class="col-sm-5">
 						<div class="form-group">
-							<label>Torre</label> <input type="number" name="torre"
+							<label>Torre</label> <input type="number" name="torre" min="1" max="10"
 								value="${cliente.torre}" class="form-control"
 								required="required">
 						</div>
 						<div class="form-group">
-							<label>Apartamento</label> <input type="number"
+							<label>Apartamento</label> <input type="number" min="1" max="266"
 								name="apartamento" value="${cliente.apartamento}"
 								class="form-control" required="required">
 						</div>

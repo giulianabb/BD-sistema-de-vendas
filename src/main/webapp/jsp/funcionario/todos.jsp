@@ -19,24 +19,24 @@
 				<h2>Funcionários cadastrados</h2>
 			</div>
 			<div class="table">
-				<table class="table">
+				<table class="table" id="table_todos">
 					<thead>
 						<tr>
 							<td>#</td>
 							<td>Nome</td>
-							<td>CPF</td>
-							<td>RG</td>
-							<td>Endereço</td>
-							<td></td>
+							<td data-orderable="false">CPF</td>
+							<td data-orderable="false">RG</td>
+							<td data-orderable="false">Endereço</td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${funcionarios}" var="funcionario">
 							<tr>
 								
-								<th scope="row"><a href="/funcionario/editar/${funcionario.id}">${funcionario.id}</a></th>
+								<td class="elemento-id"><a href="/funcionario/editar/${funcionario.id}">${funcionario.id}</a></td>
 								<td>${funcionario.nomeCompleto}</td>
-								<td>${funcionario.cpf}</td>
+								<td data-mask="000.000.000-00">${funcionario.cpf}</td>
 								<td>${funcionario.rg}</td>
 								<td>${funcionario.endereco} </td>
 								<td><a href="/funcionario/deletar/${funcionario.id}"><i class="fa fa-trash" aria-hidden="true"></i>
@@ -50,5 +50,6 @@
 		</div>
 	</section>
 	<%@ include file="../../footer-template.html"%>
+	<script src="/js/datatable-enable.js"></script>
 </body>
 </html>
