@@ -27,7 +27,7 @@
 								name="nomeCompleto" value="${funcionario.nomeCompleto }" class="form-control" required="required">
 						</div>
 						<div class="form-group">
-							<label>CPF</label> <input type="text" class="form-control"
+							<label>CPF</label> <input type="text" class="form-control" data-mask="000.000.000-00"
 								name="cpf" value="${funcionario.cpf }">
 						</div>
 						<div class="form-group">
