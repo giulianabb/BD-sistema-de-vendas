@@ -25,6 +25,7 @@
 							<td>Torre / Apartamento</td>
 							<td data-orderable="false">Telefone</td>
 							<td data-orderable="false"></td>
+							<td data-orderable="false"></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,6 +36,7 @@
 								<td data-order="${cliente.torre}.<fmt:formatNumber minIntegerDigits="3" value="${cliente.apartamento}"/>">
 								Torre ${cliente.torre} / Apt. ${cliente.apartamento}</td>
 								<td class="sp_celphones" data-filter="${cliente.telefone}"> ${cliente.telefone}</td>
+								<td><a class="btn btn-danger" href="/cliente/${cliente.id}/historico"><i class="fa fa-shopping-basket" aria-hidden="true"/> Histórico</a></td>
 								<td>
 									<form action="/cliente/deletar/${cliente.id}" method="post">
 										<button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>

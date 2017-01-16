@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.sistemavendas.DAO.ClienteDAO;
 import br.com.sistemavendas.container.GastoPorCliente;
+import br.com.sistemavendas.container.HistoricoPedidos;
 import br.com.sistemavendas.model.Cliente;
+import br.com.sistemavendas.service.PedidoService;
 
 @Controller
 @RequestMapping("/cliente")
@@ -21,7 +23,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteDAO clienteDAO;
-
+	@Autowired
+	private PedidoService pedidoService;
+	
 	@RequestMapping("/novo")
 	private String criarCliente(Model model) {
 		return "cliente/criar";
@@ -68,6 +72,14 @@ public class ClienteController {
 		List<GastoPorCliente> clientes = clienteDAO.findGastosPorCliente();
 		model.addAttribute("clientes", clientes);
 		return "cliente/gastos";
+	}
+	
+	// HISTÓRICO DE PEDIDOS POR CLIENTE
+	@RequestMapping("/{id}/historico")
+	private String historicoPorCliente(Model model, @PathVariable("id") Long id) {
+		HistoricoPedidos historico = pedidoService.montaHistoricoCliente(id);
+		model.addAttribute("historico", historico);
+		return "cliente/historico";
 	}
 	
 }

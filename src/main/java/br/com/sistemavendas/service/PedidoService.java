@@ -11,11 +11,15 @@ import br.com.sistemavendas.DAO.FuncionarioDAO;
 import br.com.sistemavendas.DAO.ItemPedidoDAO;
 import br.com.sistemavendas.DAO.PedidoDAO;
 import br.com.sistemavendas.DAO.ServicoDAO;
+import br.com.sistemavendas.DAO.SolicitaDAO;
+import br.com.sistemavendas.container.HistoricoPedidos;
+import br.com.sistemavendas.model.Cliente;
 import br.com.sistemavendas.model.Funcionario;
 import br.com.sistemavendas.model.Item;
 import br.com.sistemavendas.model.ItemPedido;
 import br.com.sistemavendas.model.Pedido;
 import br.com.sistemavendas.model.Servico;
+import br.com.sistemavendas.model.Solicita;
 import br.com.sistemavendas.type.Funcao;
 
 @Service
@@ -29,6 +33,8 @@ public class PedidoService  {
 	private FuncionarioDAO funcionarioDAO;
 	@Autowired
 	private ServicoDAO servicoDAO;
+	@Autowired
+	private SolicitaDAO solicitaDAO;
 	
 	public Double calcularPrecoTotal(Long pedidoId) {
 		Double valorfinal = 0D;
@@ -77,6 +83,25 @@ public class PedidoService  {
 		servicos = (List<Servico>) servicoDAO.save(servicos);
 		
 		return servicos;
+	}
+	
+	public HistoricoPedidos montaHistoricoCliente(Long clienteId) {
+		List<Solicita> solicitacoes = solicitaDAO.findByClienteIdOrderByPedidoDataDesc(clienteId);
+		if(solicitacoes.isEmpty()) {
+			return null;
+		}
+		Cliente cliente = solicitacoes.get(0).getCliente();
+		List<Long> pedidosId = new ArrayList<>();
+		Pedido pedido;
+		for(Solicita solicita : solicitacoes) {
+			if((pedido = solicita.getPedido()) != null) {
+				pedidosId.add(pedido.getId());
+			}
+		}
+		
+		List<List<ItemPedido>> itensPedidos = itemPedidoDAO.findAllByPedidoId(pedidosId);
+		HistoricoPedidos historico = new HistoricoPedidos(cliente, solicitacoes, itensPedidos);
+		return historico;
 	}
 	
 }
