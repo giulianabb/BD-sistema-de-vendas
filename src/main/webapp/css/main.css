@@ -18,7 +18,9 @@ tr > td {
 	font-weight: bold;
 }
 
-
+.item-pedidos-historico {
+	padding: 5px;
+}
 
 /* Sticky footer */
 

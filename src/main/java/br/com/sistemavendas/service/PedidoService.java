@@ -100,7 +100,7 @@ public class PedidoService  {
 			}
 		}
 		
-		List<ItemPedido> itensPedidosMisturados = itemPedidoDAO.findAllByPedidoId(pedidosId);
+		List<ItemPedido> itensPedidosMisturados = itemPedidoDAO.findByPedidoIdIn(pedidosId);
 		Map<Long, List<ItemPedido>> itensPedidos = separarPorPedido(itensPedidosMisturados);
 		
 		HistoricoPedidos historico = new HistoricoPedidos(cliente, solicitacoes, itensPedidos);
