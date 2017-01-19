@@ -29,17 +29,16 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label>Forma de pagamento </label><select name="tipo" class="form-control">
+							<label>Valor</label> <input type="text" disabled value='<fmt:formatNumber type="currency" currencySymbol="R$" value="${precoFinal}"/>'   
+								name="valorExibido" class="form-control" required="required">
+								<input type="hidden" name="valor" value="${precoFinal}"/>
+						</div>
+						<div class="form-group">
+							<label>Forma de pagamento </label><select name="tipo" id="select-tipo" class="form-control">
 								<c:forEach items="${tipoPagamento}" var="tipo">
 									<option value="${tipo.name()}">${tipo.toString()}
 								</c:forEach>
 							</select>
-							
-						</div>
-						<div class="form-group">
-							<label>Valor</label> <input type="text" disabled value='<fmt:formatNumber type="currency" currencySymbol="R$" value="${precoFinal}"/>'   
-								name="valorExibido" class="form-control" required="required">
-								<input type="hidden" name="valor" value="${precoFinal}"/>
 						</div>
 						<div class="form-group">
 							<button type="submit" name="submit"
@@ -64,6 +63,15 @@
 							    </span>
 							</div>
 						</div>
+						<div class="pgt-dinheiro" style="display=none;">
+							<div class="form-group nota-pagamento">
+								<label>Nota para pagamento</label>
+								<input type="text" id="dinheiro-pgt" class="form-control">
+							</div>
+							<div class="form-group troco">
+								<label>Troco</label> <input id="troco" class="form-control" type="text" disabled value="">
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -76,5 +84,28 @@
 	<script src="/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	<script src="/js/datepicker-custom.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#select-tipo').on('change', function(){
+				var tipoPgt = $(this).find(':selected').text();
+				if(tipoPgt.equals('dinheiro')) {
+					$('.pgt-dinheiro').show();
+				} else {
+					$('.pgt-dinheiro').hide();
+				}
+			});
+			
+			$('input#dinheiro-pgt').on('change', function(){
+				var dinheiro = $('input#dinheiro-pgt').val();
+				if(!dinheiro) {
+					$('input#troco').val('');
+				} else {
+					var pagamento = $('input[name="valor"]').val();
+					var troco = dinheiro - pagamento;
+					$('input#troco').val(troco);
+				}
+			});
+		})
+	</script>
 </body>
 </html>

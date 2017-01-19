@@ -80,7 +80,7 @@ public class CriarPedidoController {
 	
 	@RequestMapping("/{pedidoId}/novo/item")
 	private String adicionarItem(@PathVariable("pedidoId") Long pedidoId, Model model) {
-		model.addAttribute("itens", itemDAO.findAll());
+		model.addAttribute("itens", itemDAO.findAllByOrderByNome());
 		model.addAttribute("pedidoId", pedidoId);
 		return "pedido/adicionarItem";
 	}
@@ -109,7 +109,7 @@ public class CriarPedidoController {
 			@PathVariable(value = "pedidoId") Long pedidoId, Model model) {
 		ItemPedido item = itemPedidoDAO.findOne(itemPedidoId);
 
-		model.addAttribute("itens", itemDAO.findAll());
+		model.addAttribute("itens", itemDAO.findAllByOrderByNome());
 		model.addAttribute("itemPedido", item);
 		model.addAttribute("pedidoId", pedidoId);
 		return "pedido/editarItem";
