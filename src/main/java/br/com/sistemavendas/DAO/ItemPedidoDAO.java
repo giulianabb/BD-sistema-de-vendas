@@ -12,6 +12,6 @@ public interface ItemPedidoDAO extends CrudRepository<ItemPedido, Long>, ItemPed
 
 	public List<ItemPedido> findByPedido(Pedido pedido);
 	public List<ItemPedido> findByPedidoId(Long pedidoId);
-	public List<List<ItemPedido>> findAllByPedidoId(Iterable<Long> pedidosId);
+	public List<ItemPedido> findAllByPedidoId(List<Long> pedidosId);
 	
 }

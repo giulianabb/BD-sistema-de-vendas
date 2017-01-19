@@ -3,6 +3,7 @@ package br.com.sistemavendas.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,9 +100,27 @@ public class PedidoService  {
 			}
 		}
 		
-		List<List<ItemPedido>> itensPedidos = itemPedidoDAO.findAllByPedidoId(pedidosId);
+		List<ItemPedido> itensPedidosMisturados = itemPedidoDAO.findAllByPedidoId(pedidosId);
+		Map<Long, List<ItemPedido>> itensPedidos = separarPorPedido(itensPedidosMisturados);
+		
 		HistoricoPedidos historico = new HistoricoPedidos(cliente, solicitacoes, itensPedidos);
 		return historico;
+	}
+	
+	private Map<Long, List<ItemPedido>> separarPorPedido(List<ItemPedido> itensPedidos) {
+		Map<Long, List<ItemPedido>> mapeamento = new HashMap<Long, List<ItemPedido>>();
+		for(ItemPedido itemPedido : itensPedidos) {
+			Pedido pedido = itemPedido.getPedido();
+			List<ItemPedido> itens ;
+			if(mapeamento.containsKey(pedido.getId())) {
+				itens = mapeamento.get(pedido.getId());
+			} else {
+				itens = new ArrayList<ItemPedido>();
+			}
+			itens.add(itemPedido);
+			mapeamento.put(pedido.getId(), itens);
+		}
+		return mapeamento;
 	}
 	
 }

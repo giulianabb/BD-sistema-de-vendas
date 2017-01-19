@@ -29,6 +29,7 @@
 								<td>Data do pedido</td>
 								<td data-orderable="false">Itens do pedido</td>
 								<td>Valor final</td>
+								<td>Forma de pagamento</td>
 								<td></td>
 							</tr>
 						</thead>
@@ -40,12 +41,13 @@
 									</td>
 									<td>
 										<ul>
-										<c:forEach items="${historico.itensPorPedido.get(solicitacaoLoop.index)}" var="itemPedido">
-											<li>itemPedido.item.nome</li>
+										<c:forEach items="${historico.itensPorPedido.get(solicitacao.pedido.id)}" var="itemPedido">
+											<li>${itemPedido.quantidade}x ${itemPedido.item.nome}</li>
 										</c:forEach>
 										</ul>
 									</td>
 									<td><fmt:formatNumber type="currency" value="${solicitacao.pagamento.valor}" currencySymbol="R$" /></td>
+									<td>${solicitacao.pagamento.tipo.toString()}</td>
 									<td></td>
 								</tr>
 							</c:forEach>
