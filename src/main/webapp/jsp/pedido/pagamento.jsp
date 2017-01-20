@@ -66,7 +66,10 @@
 						<div class="pgt-dinheiro" style="display=none;">
 							<div class="form-group nota-pagamento">
 								<label>Nota para pagamento</label>
-								<input type="text" id="dinheiro-pgt" class="form-control">
+								<div class="input-group">
+									<span class="input-group-addon">R$</span>
+									<input type="text" id="dinheiro-pgt" class="form-control" data-mask="000.000.000.000.000,00" data-mask-reverse="true" >
+								</div>
 							</div>
 							<div class="form-group troco">
 								<label>Troco</label> <input id="troco" class="form-control" type="text" disabled value="">
@@ -86,9 +89,10 @@
 	<script src="/js/datepicker-custom.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#select-tipo').on('change', function(){
-				var tipoPgt = $(this).find(':selected').text();
-				if(tipoPgt.equals('dinheiro')) {
+			$('.pgt-dinheiro').hide();
+			$('select#select-tipo').on('change', function(){
+				var tipoPgt = $(this).val();
+				if(tipoPgt == 'dinheiro') {
 					$('.pgt-dinheiro').show();
 				} else {
 					$('.pgt-dinheiro').hide();
@@ -96,13 +100,13 @@
 			});
 			
 			$('input#dinheiro-pgt').on('change', function(){
-				var dinheiro = $('input#dinheiro-pgt').val();
+				var dinheiro = $('input#dinheiro-pgt').val().replace(",", ".");
 				if(!dinheiro) {
 					$('input#troco').val('');
 				} else {
 					var pagamento = $('input[name="valor"]').val();
-					var troco = dinheiro - pagamento;
-					$('input#troco').val(troco);
+					var troco = parseFloat(dinheiro) - parseFloat(pagamento);
+					$('input#troco').val('R$' + parseFloat(troco, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace("\.", ",").toString());
 				}
 			});
 		})

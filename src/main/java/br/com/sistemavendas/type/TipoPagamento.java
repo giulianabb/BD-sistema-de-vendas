@@ -1,11 +1,11 @@
 package br.com.sistemavendas.type;
 
 public enum TipoPagamento {
-	dinheiro("Dinheiro"),
-	deposito("Depósito bancário"),
-	debito("Cartão de débito"),
 	credito("Cartão de crédito"),
-	cheque("Cheque");
+	debito("Cartão de débito"),
+	cheque("Cheque"),
+	deposito("Depósito bancário"),
+	dinheiro("Dinheiro");
 	
 	private String pagamento;
 
@@ -21,4 +21,6 @@ public enum TipoPagamento {
 	public String toString() {
 		return this.getPagamento();
 	}
+	
+	
 }
