@@ -17,18 +17,24 @@
 			<div class="center">
 				<h2>Pagamento</h2>
 			</div>
-			<div class="row">
-				<div class="pull-right btn-novo-cliente">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cliente-novo" style="margin-left: 15px;">
-									<label><i class="fa fa-plus" aria-hidden="true"></i> Adicione um novo cliente</label>
+			<!-- <div class="row" style="padding-bottom: 20px; padding-top: -20px;">
+				<div class="col-sm-5 col-sm-offset-1 pull-left" >
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cliente-novo" >
+						<label><i class="fa fa-plus" aria-hidden="true"></i> Adicione um novo cliente</label>
 					</button>
 				</div>
-			</div>	
+			</div> -->	
 			<div class="row contact-wrap">
 				<form method="post" action="/pedido/${pedidoId}/pagamento/salvar">
 					<div class="col-sm-5 col-sm-offset-1">
 						<div class="form-group">
-							<label>Cliente</label>
+							<div class="input-group">
+								<label>Cliente</label>
+								<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-cliente-novo" 
+									style="padding: 5px 10px; border-radius: 20px; margin: 5px; margin-right: 5px;">
+									<i class="fa fa-plus" aria-hidden="true"></i> <strong>novo</strong>
+								</button>
+							</div>
 								<select name="clienteId" class="form-control" id="select-cliente">
 									<c:forEach items="${clientes}" var="cliente">
 										<option value="${cliente.id }">${cliente.nomeCompleto} - Torre ${cliente.torre} - Apt. ${cliente.apartamento}
@@ -133,7 +139,6 @@
 	<script src="/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	<script src="/js/datepicker-custom.js"></script>
 	<script type="text/javascript">
-		jQuery.noConflict();
 		$(document).ready(function(){
 			$('.pgt-dinheiro').hide();
 			$('select#select-tipo').on('change', function(){
@@ -167,6 +172,7 @@
 					var cliente = data;
 					$('#select-cliente').append($('<option selected value="' + cliente.id + '">' + cliente.nomeCompleto +
 							' - Torre ' + cliente.torre + ' - Apt. ' + cliente.apartamento + '</option>'));
+					jQuery.noConflict();
 					$('#modal-cliente-novo').modal('hide');
 				})
 				
