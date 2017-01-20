@@ -17,16 +17,23 @@
 			<div class="center">
 				<h2>Pagamento</h2>
 			</div>
+			<div class="row">
+				<div class="pull-right btn-novo-cliente">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cliente-novo" style="margin-left: 15px;">
+									<label><i class="fa fa-plus" aria-hidden="true"></i> Adicione um novo cliente</label>
+					</button>
+				</div>
+			</div>	
 			<div class="row contact-wrap">
-				<div class="status alert alert-success" style="display: none"></div>
 				<form method="post" action="/pedido/${pedidoId}/pagamento/salvar">
 					<div class="col-sm-5 col-sm-offset-1">
 						<div class="form-group">
-							<label>Cliente </label><select name="clienteId" class="form-control">
-								<c:forEach items="${clientes}" var="cliente">
-									<option value="${cliente.id }">${cliente.nomeCompleto} - Torre ${cliente.torre} - Apt. ${cliente.apartamento }
-								</c:forEach>
-							</select>
+							<label>Cliente</label>
+								<select name="clienteId" class="form-control" id="select-cliente">
+									<c:forEach items="${clientes}" var="cliente">
+										<option value="${cliente.id }">${cliente.nomeCompleto} - Torre ${cliente.torre} - Apt. ${cliente.apartamento}
+									</c:forEach>
+								</select>
 						</div>
 						<div class="form-group">
 							<label>Valor</label> <input type="text" disabled value='<fmt:formatNumber type="currency" currencySymbol="R$" value="${precoFinal}"/>'   
@@ -65,7 +72,7 @@
 						</div>
 						<div class="pgt-dinheiro" style="display=none;">
 							<div class="form-group nota-pagamento">
-								<label>Nota para pagamento</label>
+								<label>Valor do pagamento</label>
 								<div class="input-group">
 									<span class="input-group-addon">R$</span>
 									<input type="text" id="dinheiro-pgt" class="form-control" data-mask="000.000.000.000.000,00" data-mask-reverse="true" >
@@ -78,9 +85,47 @@
 					</div>
 				</form>
 			</div>
-			<!--/.row-->
 		</div>
 		<!--/.container-->
+		<!-- Modal -->
+		<div class="modal fade" id="modal-cliente-novo" tabindex="-1" role="dialog" aria-labelledby="modal-cliente-novo">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h2 class="modal-title" id="myModalLabel">Novo cliente</h2>
+					</div>
+					<div class="modal-body">
+						<form id="new-client-form" class="contact-form" name="contact-form"
+							method="post" action="/cliente/ajax/salvar">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Nome completo</label> <input type="text"
+										name="nomeCompleto" class="form-control" required="required">
+								</div>
+								<div class="form-group">
+									<label>Telefone</label> <input type="text" class="form-control sp_celphones"
+										name="telefone">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Torre</label> <input type="number" name="torre" min="1" max="10"
+										class="form-control" required="required">
+								</div>
+								<div class="form-group">
+									<label>Apartamento</label> <input type="number" min="11" max="266"
+										name="apartamento" class="form-control" required="required">
+								</div>
+							</div>
+							<div class="form-group" align="right">
+						        <button type="submit" class="btn btn-primary" id="salvar-novo-cliente">Salvar</button>
+				        	</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<!--/#contact-page-->
 	<%@ include file="../../footer-template.html"%>
@@ -88,6 +133,7 @@
 	<script src="/js/bootstrap-datetimepicker.pt-BR.js"></script>
 	<script src="/js/datepicker-custom.js"></script>
 	<script type="text/javascript">
+		jQuery.noConflict();
 		$(document).ready(function(){
 			$('.pgt-dinheiro').hide();
 			$('select#select-tipo').on('change', function(){
@@ -108,6 +154,26 @@
 					var troco = parseFloat(dinheiro) - parseFloat(pagamento);
 					$('input#troco').val('R$' + parseFloat(troco, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").replace("\.", ",").toString());
 				}
+			});
+			
+			$('#new-client-form').on('submit', function(event){
+				event.preventDefault();
+				var $form = $(this),
+					url = $form.attr('action');
+				
+				var posting = $.post(url, $form.serialize())
+				
+				posting.done(function(data) {
+					var cliente = data;
+					$('#select-cliente').append($('<option selected value="' + cliente.id + '">' + cliente.nomeCompleto +
+							' - Torre ' + cliente.torre + ' - Apt. ' + cliente.apartamento + '</option>'));
+					$('#modal-cliente-novo').modal('hide');
+				})
+				
+				posting.fail(function(){
+					$('.modal-body').prepend('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Ocorreu um erro!</div>');
+				})
+				
 			});
 		})
 	</script>

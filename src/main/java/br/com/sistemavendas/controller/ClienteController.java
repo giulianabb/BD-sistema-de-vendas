@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.sistemavendas.DAO.ClienteDAO;
 import br.com.sistemavendas.container.GastoPorCliente;
@@ -38,6 +39,13 @@ public class ClienteController {
 		}
 		cliente = clienteDAO.save(cliente);
 		return "redirect:/cliente/sucesso";
+	}
+	
+	// método ajax para a criação de clientes durante o pedido
+	@RequestMapping(value = "/ajax/salvar", method = RequestMethod.POST)
+	private @ResponseBody Cliente salvarClienteAJAX(@ModelAttribute Cliente cliente) {
+		cliente = clienteDAO.save(cliente);
+		return cliente;
 	}
 	
 	@RequestMapping("/sucesso")
