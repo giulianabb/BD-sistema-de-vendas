@@ -69,7 +69,7 @@ public class PedidoDAOImpl implements PedidoDAOCustom  {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PedidosPorDia> findPedidosPorDia() {
+	public List<PedidosPorDia> findPedidosPorDiaDaSemana() {
 		List<Object[]> results = em.createNativeQuery("SELECT p.dia_semana, sum(pag.valor) as valor_total, count(p.id) as pedido, avg(pag.valor) as valor_medio FROM  solicita s inner join pedido p on s.pedido_id = p.id inner join pagamento pag on pag.id = s.pagamento_id     group by p.dia_semana     order by field(p.dia_semana, 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo')").getResultList();
 		
 		List<PedidosPorDia> pedidos = new ArrayList<>();

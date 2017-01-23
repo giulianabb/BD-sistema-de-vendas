@@ -49,7 +49,8 @@ public class AnalisePedidoController {
 		return "redirect:/pedido/info/ativos";
 	}
 	
-	// TODO deletar itensPedidos?
+	// DELETAR PEDIDO
+	
 	@RequestMapping(value="/{pagina}/{pedidoId}/deletar", method=RequestMethod.POST)
 	private String deletarPedido(@PathVariable(value = "pedidoId") Long pedidoId, @PathVariable String pagina, Model model) {
 		pedidoDAO.delete(pedidoId);
@@ -96,9 +97,21 @@ public class AnalisePedidoController {
 	
 	// PEDIDOS POR DIA
 	@RequestMapping("/por/dia")
-	private String pedidosPorDia(Model model) {
-		List<PedidosPorDia> pedidos = pedidoDAO.findPedidosPorDia();
+	private String pedidosPorDiaDaSemana(Model model) {
+		List<PedidosPorDia> pedidos = pedidoDAO.findPedidosPorDiaDaSemana();
 		model.addAttribute("pedidos", pedidos);
 		return "pedido/porDia";
 	}
+	
+	// FECHAMENTO DO DIA
+	@RequestMapping("/fechamento/dia")
+	private String fechamentoDoDia(@RequestParam(required=false) Date data, Model model) {
+		if(data==null) {
+			data = new Date();
+		}
+		List<Pedido> pedidos = pedidoDAO.findPedidoByData(data);
+		model.addAttribute("pedidos", pedidos);
+		return "pedido/fechamentoPorDia";
+	}
+	
 }

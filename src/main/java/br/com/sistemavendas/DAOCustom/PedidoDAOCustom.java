@@ -13,5 +13,5 @@ public interface PedidoDAOCustom {
 	public List<PedidoComCliente> findPedidosAtivos();
 	public List<Solicita> findPedidosNaoPagos();
 	public List<PedidosPorTorre> findPedidosPorTorre();
-	public List<PedidosPorDia> findPedidosPorDia();
+	public List<PedidosPorDia> findPedidosPorDiaDaSemana();
 }
