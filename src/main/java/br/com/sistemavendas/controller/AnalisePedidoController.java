@@ -1,18 +1,24 @@
 package br.com.sistemavendas.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.sistemavendas.DAO.ItemPedidoDAO;
 import br.com.sistemavendas.DAO.PagamentoDAO;
 import br.com.sistemavendas.DAO.PedidoDAO;
+import br.com.sistemavendas.container.ItemPedidoPorDia;
 import br.com.sistemavendas.container.PedidoComCliente;
 import br.com.sistemavendas.container.PedidosPorDia;
 import br.com.sistemavendas.container.PedidosPorTorre;
@@ -29,6 +35,8 @@ public class AnalisePedidoController {
 	private PedidoDAO pedidoDAO;
 	@Autowired
 	private PagamentoDAO pagamentoDAO;
+	@Autowired
+	private ItemPedidoDAO itemPedidoDAO;
 	
 	// PEDIDOS ATIVOS
 	
@@ -105,13 +113,20 @@ public class AnalisePedidoController {
 	
 	// FECHAMENTO DO DIA
 	@RequestMapping("/fechamento/dia")
-	private String fechamentoDoDia(@RequestParam(required=false) Date data, Model model) {
-		if(data==null) {
-			data = new Date();
+	private String fechamentoDoDia(@RequestParam(required=false) Date dia, Model model) {
+		if(dia==null) {
+			dia = new Date();
 		}
-		List<Pedido> pedidos = pedidoDAO.findPedidoByData(data);
-		model.addAttribute("pedidos", pedidos);
+		List<ItemPedidoPorDia> itensPedidos = itemPedidoDAO.findItensPedidosPorDia(dia);
+		model.addAttribute("dia", dia);
+		model.addAttribute("itensPedidos", itensPedidos);
 		return "pedido/fechamentoPorDia";
 	}
 	
+	// INIT BINDER PARA FORMATAR A DATA RECEBIDA
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 }

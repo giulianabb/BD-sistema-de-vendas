@@ -17,13 +17,6 @@
 			<div class="center">
 				<h2>Pagamento</h2>
 			</div>
-			<!-- <div class="row" style="padding-bottom: 20px; padding-top: -20px;">
-				<div class="col-sm-5 col-sm-offset-1 pull-left" >
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cliente-novo" >
-						<label><i class="fa fa-plus" aria-hidden="true"></i> Adicione um novo cliente</label>
-					</button>
-				</div>
-			</div> -->	
 			<div class="row contact-wrap">
 				<form method="post" action="/pedido/${pedidoId}/pagamento/salvar">
 					<div class="col-sm-5 col-sm-offset-1">
