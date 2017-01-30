@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
+<%@ include file="../../import.html"%>
 <title>Pagamento</title>
 </head>
 <!--/head-->
@@ -21,11 +22,11 @@
 				<form method="post" action="/pedido/${pedidoId}/pagamento/salvar">
 					<div class="col-sm-5 col-sm-offset-1">
 						<div class="form-group">
-							<div class="input-group">
+							<div class="input-group" style="margin-bottom: 5px;">
 								<label>Cliente</label>
 								<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-cliente-novo" 
-									style="padding: 5px 10px; border-radius: 20px; margin: 5px; margin-right: 5px;">
-									<i class="fa fa-plus" aria-hidden="true"></i> <strong>novo</strong>
+									style="padding: 2px 8px; border-radius: 20px; margin: 5px; margin-right: 5px;">
+									<i class="fa fa-plus" aria-hidden="true"></i>
 								</button>
 							</div>
 								<select name="clienteId" class="form-control" id="select-cliente">
